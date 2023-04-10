@@ -1,0 +1,9 @@
+{
+  "rds_host": "PLACEEHOLDER",
+  "rds_port": "PLACEEHOLDER",
+  "rds_user": "PLACEEHOLDER",
+  "rds_password" : "PLACEEHOLDER",
+  "rds_db": "PLACEEHOLDER",
+  "server_host": "localhost",
+  "server_port":"8080"
+}

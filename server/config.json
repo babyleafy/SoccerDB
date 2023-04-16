@@ -1,9 +1,9 @@
 {
-  "rds_host": "PLACEEHOLDER",
-  "rds_port": "PLACEEHOLDER",
-  "rds_user": "PLACEEHOLDER",
-  "rds_password" : "PLACEEHOLDER",
-  "rds_db": "PLACEEHOLDER",
+  "rds_host": "http://database-1.cgeveumwg5sq.us-east-1.rds.amazonaws.com",
+  "rds_port": "3306",
+  "rds_user": "admin",
+  "rds_password" : "3KpDJ8gbBfsGeiBqtqGe",
+  "rds_db": "SWIFTIFY",
   "server_host": "localhost",
   "server_port":"8080"
 }

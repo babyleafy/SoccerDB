@@ -1,9 +1,9 @@
 {
-  "rds_host": "http://database-1.cgeveumwg5sq.us-east-1.rds.amazonaws.com",
+  "rds_host": "database-1.cgeveumwg5sq.us-east-1.rds.amazonaws.com",
   "rds_port": "3306",
   "rds_user": "admin",
   "rds_password" : "3KpDJ8gbBfsGeiBqtqGe",
-  "rds_db": "SWIFTIFY",
+  "rds_db": "Soccer",
   "server_host": "localhost",
   "server_port":"8080"
 }

@@ -16,7 +16,7 @@ connection.connect((err) => err && console.log(err));
  ******************/
 
 // GET /players
-const players = async function(req, res) {
+const players = async function (req, res) {
   connection.query(`
   SELECT *
   FROM Players
@@ -30,8 +30,8 @@ const players = async function(req, res) {
   });
 }
 
-// GET /player/:player_id
-const player = async function(req, res) {
+// GET /player_id/:player_id
+const player_id = async function (req, res) {
   const player_id = req.params.player_id;
 
   connection.query(`
@@ -48,8 +48,8 @@ const player = async function(req, res) {
   });
 }
 
-// GET /player/:player_name
-const player = async function(req, res) {
+// GET /player_name/:player_name
+const player_name = async function (req, res) {
   const player_name = req.params.player_name;
 
   connection.query(`
@@ -71,7 +71,7 @@ const player = async function(req, res) {
  ******************/
 
 // GET /clubs
-const clubs = async function(req, res) {
+const clubs = async function (req, res) {
   connection.query(`
   SELECT *
   FROM Clubs
@@ -85,8 +85,8 @@ const clubs = async function(req, res) {
   });
 }
 
-// GET /club/:club_id
-const club = async function(req, res) {
+// GET /club_id/:club_id
+const club_id = async function (req, res) {
   const club_id = req.params.player_id;
 
   connection.query(`
@@ -103,8 +103,8 @@ const club = async function(req, res) {
   });
 }
 
-// GET /club/:club_name
-const club = async function(req, res) {
+// GET /club_name/:club_name
+const club_name = async function (req, res) {
   const club_name = req.params.club_name;
 
   connection.query(`
@@ -127,10 +127,10 @@ const club = async function(req, res) {
  ************************/
 
 // GET /top_clubs/:orderBy
-const top_clubs = async function(req, res) {
+const top_clubs = async function (req, res) {
   const page = req.query.page;
   const pageSize = req.query.page_size ? req.query.page_size : 10;
-  const orderBy = req.query.orderBy : "goals";
+  const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
   if (orderBy === "goals") {
     if (!page) {
       connection.query(`
@@ -183,13 +183,14 @@ const top_clubs = async function(req, res) {
           res.json(data);
         }
       })
+    }
   } else if (orderBy === "value") {
-  const page = req.query.page;
-  const pageSize = req.query.page_size ? req.query.page_size : 10;
-  const orderBy = req.query.orderBy : "goals";
-  if (orderBy === "goals") {
-    if (!page) {
-      connection.query(`
+    const page = req.query.page;
+    const pageSize = req.query.page_size ? req.query.page_size : 10;
+    const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
+    if (orderBy === "goals") {
+      if (!page) {
+        connection.query(`
       WITH PlayerValues AS (
         SELECT player_id, club_id, market_value_in_eur
       FROM Players
@@ -205,15 +206,15 @@ const top_clubs = async function(req, res) {
       GROUP BY ClubValues.club_id
       ORDER BY club_value DESC;
       `, (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          res.json({});
-        } else {
-          res.json(data);
-        }
-      });
-    } else {
-      connection.query(`
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json({});
+          } else {
+            res.json(data);
+          }
+        });
+      } else {
+        connection.query(`
       WITH PlayerValues AS (
         SELECT player_id, club_id, market_value_in_eur
       FROM Players
@@ -230,43 +231,45 @@ const top_clubs = async function(req, res) {
       ORDER BY club_value DESC;
       LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
       `, (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          res.json({});
-        } else {
-          res.json(data);
-        }
-      })
-  }
-  if (!page) {
-    connection.query(`
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json({});
+          } else {
+            res.json(data);
+          }
+        })
+      }
+      if (!page) {
+        connection.query(`
     SELECT Songs.song_id, Songs.title, Albums.album_id, Albums.title as album, Songs.plays
     FROM Songs, Albums
     WHERE Songs.album_id = Albums.album_id
     ORDER BY {orderBy} DESC
     `, (err, data) => {
-      if (err || data.length === 0) {
-        console.log(err);
-        res.json({});
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json({});
+          } else {
+            res.json(data);
+          }
+        });
       } else {
-        res.json(data);
-      }
-    });
-  } else {
-    connection.query(`
+        connection.query(`
     SELECT Songs.song_id, Songs.title, Albums.album_id, Albums.title as album, Songs.plays
     FROM Songs, Albums
     WHERE Songs.album_id = Albums.album_id
     ORDER BY plays DESC
     LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
     `, (err, data) => {
-      if (err || data.length === 0) {
-        console.log(err);
-        res.json({});
-      } else {
-        res.json(data);
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json({});
+          } else {
+            res.json(data);
+          }
+        })
       }
-    })
+    }
   }
 }
 

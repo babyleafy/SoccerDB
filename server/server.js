@@ -16,4 +16,7 @@ app.listen(config.server_port, () => {
   console.log(`Server running at http://${config.server_host}:${config.server_port}/`)
 });
 
+app.get('/players', routes.players)
+app.get('/player_id/:player_id', routes.player_id)
+
 module.exports = app;

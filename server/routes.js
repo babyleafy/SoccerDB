@@ -273,3 +273,8 @@ const top_clubs = async function (req, res) {
   }
 }
 
+module.exports = {
+  players,
+  player_id,
+  player_name
+}

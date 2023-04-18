@@ -1,0 +1,58 @@
+CREATE TABLE Clubs (
+    club_id INT,
+    club_name VARCHAR(50),
+    total_market_value FLOAT(6),
+    squad_size INT,
+    average_age FLOAT(6),
+    coach_name VARCHAR(50),
+    PRIMARY KEY (club_id)
+);
+
+CREATE TABLE Players (
+    player_id INT,
+    player_name VARCHAR(50),
+    club_id INT NOT NULL,
+    country VARCHAR(60),
+    date_of_birth VARCHAR(10),
+    position VARCHAR(30),
+    foot VARCHAR(5),
+    height_in_cm INT,
+    market_value_in_eur INT,
+    highest_market_value_in_eur INT,
+    image_url VARCHAR(150),
+    last_season INT NOT NULL,
+    FOREIGN KEY (club_id) REFERENCES Clubs (club_id),
+    PRIMARY KEY (player_id)
+);
+
+CREATE TABLE Games (
+    game_id INT,
+    competition_id VARCHAR(10),
+    season INT NOT NULL,
+    round VARCHAR(25),
+    game_date VARCHAR(10),
+    home_club_id INT NOT NULL,
+    away_club_id INT NOT NULL,
+    home_club_goals INT NOT NULL,
+    away_club_goals INT NOT NULL,
+    stadium VARCHAR(50),
+    attendance INT,
+    FOREIGN KEY (home_club_id) REFERENCES Clubs (club_id),
+    FOREIGN KEY (away_club_id) REFERENCES Clubs (club_id),
+    PRIMARY KEY (game_id)
+);
+
+CREATE TABLE Appearances (
+    game_id INT,
+    player_id INT,
+    player_club_id INT NOT NULL,
+    yellow_cards INT NOT NULL,
+    red_cards INT NOT NULL,
+    goals INT NOT NULL,
+    assists INT NOT NULL,
+    minutes_played INT NOT NULL,
+    FOREIGN KEY (game_id) REFERENCES Games(game_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (player_club_id) REFERENCES Clubs(club_id),
+    PRIMARY KEY (game_id, player_id)
+);

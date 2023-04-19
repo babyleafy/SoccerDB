@@ -1,10 +1,5 @@
 <template>
-    
-    <v-btn v-if="data">
-        Button
-    </v-btn>
-    <div class="d-flex justify-center">
-      <v-card v-if="data" width='400' align='center'>
+    <v-card v-if="data" align='center'>
         <v-img
           :src="data.image_url"
           cover
@@ -23,8 +18,6 @@
           <p>Max Market value (€): {{ Number(data.highest_market_value_in_eur).toLocaleString(undefined) }}</p>
         </v-card-text>
     </v-card>
-    </div>
-    <h3> {{ id }} {{ data }}</h3>
 </template>
 
 <script>
@@ -88,7 +81,7 @@ export default {
     this.fetchData(this.id)
   },
   watch: {
-    id(oldId, newId) {
+    id(newId, oldId) {
       this.fetchData(newId)
     }
   }

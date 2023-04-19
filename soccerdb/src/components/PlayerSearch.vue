@@ -1,7 +1,4 @@
 <template>
-    <v-btn>
-        FREEDOM THROUGHOUT THE UNIVERSE {{ lastSelectedItem }}
-    </v-btn>
         <v-card class="mx-auto" color="grey-lighten-3">
             <v-card-text>
                 <v-text-field :loading="loading" 

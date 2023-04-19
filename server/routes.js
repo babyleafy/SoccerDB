@@ -35,9 +35,11 @@ const player_id = async function (req, res) {
   const player_id = req.params.player_id;
 
   connection.query(`
-  SELECT *
-  FROM Players
-  WHERE player_id = "${player_id}"
+  SELECT Players.player_id, Players.player_name, Players.club_id, Players.country, Players.date_of_birth,
+         Players.position, Players.foot, Players.height_in_cm, Players.market_value_in_eur, Players.highest_market_value_in_eur,
+         Players.image_url, Players.last_season, Clubs.club_name
+  FROM Players, Clubs 
+  WHERE player_id = "${player_id}" AND Players.club_id = Clubs.club_id
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
@@ -53,9 +55,11 @@ const player_name = async function (req, res) {
   const player_name = req.params.player_name;
 
   connection.query(`
-  SELECT *
-  FROM Players
-  WHERE player_name LIKE "%${player_name}%"
+  SELECT Players.player_id, Players.player_name, Players.club_id, Players.country, Players.date_of_birth,
+         Players.position, Players.foot, Players.height_in_cm, Players.market_value_in_eur, Players.highest_market_value_in_eur,
+         Players.image_url, Players.last_season, Clubs.club_name
+  FROM Players, Clubs
+  WHERE player_name LIKE "%${player_name}%" AND Players.club_id = Clubs.club_id
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);

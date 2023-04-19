@@ -1,18 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <Player id=99946></Player>
+  <PlayerSearch @changeSelectedPlayer="changeSelectedPlayer($event)"></PlayerSearch>
+  <Player :id=id></Player>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import Player from './components/Player.vue'
+import PlayerSearch from './components/PlayerSearch.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    Player
+    Player,
+    PlayerSearch
+  },
+  data() {
+    return {
+      id: 99946
+    }
+  },
+  methods: {
+    changeSelectedPlayer(id) {
+      this.id = id
+      console.log('hello')
+      console.log(id)
+      console.log(this.id)
+    }
   }
 }
 </script>

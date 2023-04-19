@@ -1,5 +1,5 @@
 <template>
-    <h1> {{ id }} {{ data }}</h1>
+    
     <v-btn v-if="data">
         Button
     </v-btn>
@@ -24,7 +24,7 @@
         </v-card-text>
     </v-card>
     </div>
-    
+    <h3> {{ id }} {{ data }}</h3>
 </template>
 
 <script>
@@ -86,6 +86,11 @@ export default {
   },
   mounted() {
     this.fetchData(this.id)
+  },
+  watch: {
+    id(oldId, newId) {
+      this.fetchData(newId)
+    }
   }
 }
 </script>

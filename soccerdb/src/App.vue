@@ -1,30 +1,24 @@
 <template>
-  <PlayerSearch @changeSelectedPlayer="changeSelectedPlayer($event)"></PlayerSearch>
-  <Player :id=id></Player>
+  <div>
+    <router-link to="/">HomePage</router-link>
+    <router-link to="/players">Players</router-link>
+    <router-link to="/clubs">Clubs</router-link>
+    <router-link to="/matches">Matches</router-link>
+    <router-link to="/top">Top</router-link>
+    <router-view></router-view>
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HomePage msg="The Soccer Database"/>
+    <Player id=99946></Player>
+  </div>
 </template>
 
 <script>
-import Player from './components/Player.vue'
-import PlayerSearch from './components/PlayerSearch.vue'
+import HomePage from './views/HomePage.vue'
 
 export default {
   name: 'App',
   components: {
-    Player,
-    PlayerSearch
-  },
-  data() {
-    return {
-      id: 99946
-    }
-  },
-  methods: {
-    changeSelectedPlayer(id) {
-      this.id = id
-      console.log('hello')
-      console.log(id)
-      console.log(this.id)
-    }
+    HomePage
   }
 }
 </script>

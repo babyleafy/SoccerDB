@@ -14,12 +14,10 @@
 
 <script>
 import HomePage from './views/HomePage.vue'
-import Player from './components/Player.vue'
 
 export default {
   name: 'App',
   components: {
-    Player,
     HomePage
   }
 }

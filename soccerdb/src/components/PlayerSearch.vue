@@ -26,8 +26,18 @@
                 item-value="player_name"
                 @click:row="handleRowClick"
                 hover>
-                
+
         </v-data-table>
+        <h2>Selected Players</h2>
+        <v-data-table-virtual v-if="selected"
+                class=".custom-table"   
+                :headers="headers"
+                :items="selected.values()"
+
+                item-value="player_name"
+                @click:row="handleRowClickSelected"
+                hover>
+        </v-data-table-virtual>
         
 </template>
 
@@ -44,7 +54,8 @@ export default {
             loading: false,
             post: null,
             error: null,
-            data: null,
+            data: [{}, {}, {}, {}, {}],
+            selected: new Map(),
             datestring: null,
             itemsPerPage: 5,
             headers: [
@@ -56,6 +67,7 @@ export default {
 
 
                 },
+                { title: 'Club', align: 'end', key: 'club_name' },
                 { title: 'Date of birth', align: 'end', key: 'dob' },
                 { title: 'Country', align: 'end', key: 'country' },
                 { title: 'Position', align: 'end', key: 'position' },
@@ -97,8 +109,10 @@ export default {
                     this.data.forEach((player) => {
                         const date = new Date(player.date_of_birth)
                         player.dob = date.toDateString()
-                    })}
-                )
+                    })
+                    this.padArray(this.data, 5, {})
+                }
+            )
         },
         handleRowClick(event, {item}) {
             if (window.getSelection().toString().length === 0) {
@@ -107,6 +121,19 @@ export default {
                 console.log(item.columns.player_id)
                 this.lastSelectedItem = item.player_name
                 this.$emit('changeSelectedPlayer', item.columns.player_id)
+                this.selected.set(item.columns.player_id, item.columns)
+            }
+        },
+        handleRowClickSelected(event, {item}) {
+            
+            if (window.getSelection().toString().length === 0) {
+                console.log(item.columns)
+                console.log(this.selected.delete(item.columns.player_id))
+            }
+        },
+        padArray(arr, count, padding) {
+            for(let i = 0; i < count - arr.length; i++) {
+                            this.data.push(padding)
             }
         }
     }

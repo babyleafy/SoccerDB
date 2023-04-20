@@ -9,6 +9,7 @@
           <h2>
             Name: {{ data.player_name }}
           </h2>
+          <p>Club: {{ data.club_name ? data.club_name : "No club" }}</p>
           <p>Country: {{ data.country }}</p>
           <p>Date of birth: {{ datestring }}</p>
           <p>Position: {{ data.position }}</p>

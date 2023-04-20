@@ -17,7 +17,7 @@
             
         </v-card>
 
-        <v-data-table v-if="data"
+        <v-data-table v-show="data"
                 class=".custom-table"
                 v-model:items-per-page="itemsPerPage"
                 :headers="headers"
@@ -26,7 +26,7 @@
                 item-value="player_name"
                 @click:row="handleRowClick"
                 hover>
-
+        
         </v-data-table>
         <h2>Selected Players</h2>
         <v-data-table-virtual v-if="selected"
@@ -97,39 +97,59 @@ export default {
 
                 res => {
                     if (res.ok) {
-                        //this.data=res.json()
                         this.loading = false
                         this.loaded = true
                         return res.json()
                     }
                 }
             ).then(
-                data => this.data = data
+                data => {
+                    console.log(data)
+                    if (Object.keys(data).length === 0) {
+                        console.log(data)
+                        this.data = [{}, {}]
+                    }
+                    else {
+                        this.data = data
+                    }
+                    
+                }
             ).then(() => {
-                    this.data.forEach((player) => {
-                        const date = new Date(player.date_of_birth)
-                        player.dob = date.toDateString()
-                    })
-                    this.padArray(this.data, 5, {})
+                        
+                        this.data.forEach((player) => {
+                            if (player.date_of_birth) {
+                                const date = new Date(player.date_of_birth)
+                                player.dob = date.toDateString()
+                            }
+                        })
+                        this.padArray(this.data, 5, {})
                 }
             )
         },
         handleRowClick(event, {item}) {
-            if (window.getSelection().toString().length === 0) {
+            
+            if (window.getSelection().toString().length === 0 &&
+                item != null &&
+                item.columns != null &&
+                item.columns.player_id != null
+            ) {
                 console.log(item)
-                console.log(item.columns.player_name)
+                console.log()
                 console.log(item.columns.player_id)
                 this.lastSelectedItem = item.player_name
                 this.$emit('changeSelectedPlayer', item.columns.player_id)
                 this.selected.set(item.columns.player_id, item.columns)
             }
+            
         },
         handleRowClickSelected(event, {item}) {
+            
             
             if (window.getSelection().toString().length === 0) {
                 console.log(item.columns)
                 console.log(this.selected.delete(item.columns.player_id))
             }
+            
         },
         padArray(arr, count, padding) {
             for(let i = 0; i < count - arr.length; i++) {

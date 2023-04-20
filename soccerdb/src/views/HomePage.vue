@@ -1,4 +1,5 @@
 <template>
+  <h1>SoccerDB</h1>
   <div class="hello">
     <h1>{{ msg }}</h1>
     <v-carousel cycle height="400" hide-delimiter-background show-arrows="hover">

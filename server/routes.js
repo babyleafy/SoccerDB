@@ -91,7 +91,7 @@ const clubs = async function (req, res) {
 
 // GET /club_id/:club_id
 const club_id = async function (req, res) {
-  const club_id = req.params.player_id;
+  const club_id = req.params.club_id;
 
   connection.query(`
   SELECT *
@@ -102,7 +102,7 @@ const club_id = async function (req, res) {
       console.log(err);
       res.json({});
     } else {
-      res.json(data[0]);
+      res.json(data);
     }
   });
 }
@@ -113,7 +113,7 @@ const club_name = async function (req, res) {
 
   connection.query(`
   SELECT *
-  FROM Players
+  FROM Clubs
   WHERE club_name LIKE "%${club_name}%"
   `, (err, data) => {
     if (err || data.length === 0) {

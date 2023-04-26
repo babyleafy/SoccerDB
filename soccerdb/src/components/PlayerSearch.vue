@@ -61,15 +61,6 @@ export default {
         }
     },
     methods: {
-        onClick () {
-            this.loading = true
-
-            setTimeout(() => {
-            this.loading = false
-            this.loaded = true
-            //console.log(this.name)
-            }, 2000)
-        },
         /**
          * TODO: REPLACE WITH ACTUAL FETCH / API ROUTING
          */
@@ -94,9 +85,7 @@ export default {
                 }
             ).then(
                 data => {
-                    //console.log(data)
                     if (Object.keys(data).length === 0) {
-                        //console.log(data)
                         this.data = [{}, {}]
                     }
                     else {
@@ -123,23 +112,12 @@ export default {
                 item.columns != null &&
                 item.columns.player_id != null
             ) {
-                //console.log(item)
-                //console.log(item.columns.player_id)
                 this.$emit('changeHoveredPlayer', item.columns.player_id)
 
                 this.$emit('addSelectedPlayer', {
                     key:item.columns.player_id, 
                     value:item.columns
                 })
-            }
-            
-        },
-        handleRowClickSelected(event, {item}) {
-            
-            
-            if (window.getSelection().toString().length === 0) {
-                //console.log(item.columns)
-                //console.log(this.selected.delete(item.columns.player_id))
             }
             
         },

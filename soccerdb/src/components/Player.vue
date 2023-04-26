@@ -63,19 +63,17 @@ export default {
                     foot: "Right", 
                     height_in_cm: "180", 
                     market_value_in_eur: "50000", 
-                    image_url: "https://img.a.transfermarkt.technology/portrait/header/s_104725_1028_2013_09_24_1.jpg?lm=1"
-                
+                    image_url: ""
               }
             }
            }
         ).then(
            data => this.data = data
-        ).
-        then( () =>
-          {const date = new Date(this.data.date_of_birth)
+        ).then(() =>
+          {
+            const date = new Date(this.data.date_of_birth)
             this.datestring = date.toDateString()
-          console.log(this.data)}
-          )
+          })
     }
   },
   mounted() {

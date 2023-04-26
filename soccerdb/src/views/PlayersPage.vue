@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import Player from '../components/Player.vue'
-import PlayerSearch from '../components/PlayerSearch.vue'
+import Player from '@/components/Player.vue'
+import PlayerSearch from '@/components/PlayerSearch.vue'
 import LineChart from '@/components/LineChart.vue'
 import SelectedPlayers from '@/components/SelectedPlayers.vue'
 
@@ -58,12 +58,7 @@ export default {
         },
 
         addSelectedPlayer(data) {
-            
-            console.log('hello', this.selected)
-            console.log(data)
             this.selected.set(data.key, data.value)
-
-            console.log([...this.selected.entries()])
         },
         removeSelectedPlayer(key) {
             this.selected.delete(key)

@@ -28,17 +28,6 @@
                 hover>
         
         </v-data-table>
-        <h2>Selected Players</h2>
-        <v-data-table-virtual v-if="selected"
-                class=".custom-table"   
-                :headers="headers"
-                :items="selected.values()"
-
-                item-value="player_name"
-                @click:row="handleRowClickSelected"
-                hover>
-        </v-data-table-virtual>
-        
 </template>
 
 <script>
@@ -46,25 +35,21 @@
 
 export default {
     name: 'PlayerSearch',
-    emits: ["changeSelectedPlayer"],
+    emits: ["changeHoveredPlayer", "addSelectedPlayer"],
     data() {
         return {
-            lastSelectedItem: "asdf",
             name: null,
             loading: false,
             post: null,
             error: null,
             data: [{}, {}, {}, {}, {}],
-            selected: new Map(),
             datestring: null,
             itemsPerPage: 5,
             headers: [
                 {
                     title: 'Name',
                     align: 'start',
-                    sortable: false,
                     key: 'player_name',
-
 
                 },
                 { title: 'Club', align: 'end', key: 'club_name' },
@@ -82,7 +67,7 @@ export default {
             setTimeout(() => {
             this.loading = false
             this.loaded = true
-            console.log(this.name)
+            //console.log(this.name)
             }, 2000)
         },
         /**
@@ -91,8 +76,13 @@ export default {
         fetchData() {
             this.loading = true
             const config = require('../../config.json')
+
+            const fetchRoute = this.name && this.name != '' 
+                ? `${config.backend_url}/player_name/${this.name}`
+                : `${config.backend_url}/players`
+
             fetch(
-                `${config.backend_url}/player_name/${this.name}`
+                fetchRoute
             ).then(
 
                 res => {
@@ -104,9 +94,9 @@ export default {
                 }
             ).then(
                 data => {
-                    console.log(data)
+                    //console.log(data)
                     if (Object.keys(data).length === 0) {
-                        console.log(data)
+                        //console.log(data)
                         this.data = [{}, {}]
                     }
                     else {
@@ -133,12 +123,14 @@ export default {
                 item.columns != null &&
                 item.columns.player_id != null
             ) {
-                console.log(item)
-                console.log()
-                console.log(item.columns.player_id)
-                this.lastSelectedItem = item.player_name
-                this.$emit('changeSelectedPlayer', item.columns.player_id)
-                this.selected.set(item.columns.player_id, item.columns)
+                //console.log(item)
+                //console.log(item.columns.player_id)
+                this.$emit('changeHoveredPlayer', item.columns.player_id)
+
+                this.$emit('addSelectedPlayer', {
+                    key:item.columns.player_id, 
+                    value:item.columns
+                })
             }
             
         },
@@ -146,8 +138,8 @@ export default {
             
             
             if (window.getSelection().toString().length === 0) {
-                console.log(item.columns)
-                console.log(this.selected.delete(item.columns.player_id))
+                //console.log(item.columns)
+                //console.log(this.selected.delete(item.columns.player_id))
             }
             
         },

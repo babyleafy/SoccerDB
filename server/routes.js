@@ -18,12 +18,12 @@ connection.connect((err) => err && console.log(err));
 // GET /players
 const players = async function (req, res) {
   connection.query(`
-  SELECT *
-  FROM Players
+    SELECT *
+    FROM Players
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
-      res.json({});
+      res.json([]);
     } else {
       res.json(data);
     }
@@ -35,11 +35,11 @@ const player_id = async function (req, res) {
   const player_id = req.params.player_id;
 
   connection.query(`
-  SELECT Players.player_id, Players.player_name, Players.club_id, Players.country, Players.date_of_birth,
-         Players.position, Players.foot, Players.height_in_cm, Players.market_value_in_eur, Players.highest_market_value_in_eur,
-         Players.image_url, Players.last_season, Clubs.club_name
-  FROM Players, Clubs 
-  WHERE player_id = ${player_id} AND Players.club_id = Clubs.club_id
+    SELECT Players.player_id, Players.player_name, Players.club_id, Players.country, Players.date_of_birth,
+           Players.position, Players.foot, Players.height_in_cm, Players.market_value_in_eur, Players.highest_market_value_in_eur,
+           Players.image_url, Players.last_season, Clubs.club_name
+    FROM Players, Clubs
+    WHERE player_id = ${player_id} AND Players.club_id = Clubs.club_id
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
@@ -55,11 +55,11 @@ const player_name = async function (req, res) {
   const player_name = req.params.player_name;
 
   connection.query(`
-  SELECT Players.player_id, Players.player_name, Players.club_id, Players.country, Players.date_of_birth,
-         Players.position, Players.foot, Players.height_in_cm, Players.market_value_in_eur, Players.highest_market_value_in_eur,
-         Players.image_url, Players.last_season, Clubs.club_name
-  FROM Players, Clubs
-  WHERE player_name LIKE "%${player_name}%" AND Players.club_id = Clubs.club_id
+    SELECT Players.player_id, Players.player_name, Players.club_id, Players.country, Players.date_of_birth,
+          Players.position, Players.foot, Players.height_in_cm, Players.market_value_in_eur, Players.highest_market_value_in_eur,
+          Players.image_url, Players.last_season, Clubs.club_name
+    FROM Players, Clubs
+    WHERE player_name LIKE "%${player_name}%" AND Players.club_id = Clubs.club_id
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
@@ -68,6 +68,145 @@ const player_name = async function (req, res) {
       res.json(data);
     }
   });
+}
+
+/***************************
+ * ADVANCED PLAYER ROUTES *
+ ***************************/
+const top_players = async function (req, res) {
+  const page = req.query.page;
+  const pageSize = req.query.page_size ? req.query.page_size : 10;
+  const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
+
+  if (orderBy === "goals" || orderBy === "assists" || orderBy === "red_cards" || orderBy === "yellow_cards" || orderBy === "minutes_played") {
+    if (!page) {
+      connection.query(`
+        WITH AppearanceData AS (
+          SELECT player_id, ${orderBy}
+          FROM Appearances
+        )
+        SELECT Players.player_id, Players.player_name, SUM(${orderBy}) AS ${orderBy}
+        FROM Players NATURAL JOIN AppearanceData
+        GROUP BY player_id, player_name
+        ORDER BY ${orderBy} DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    } else {
+      connection.query(`
+        WITH AppearanceData AS (
+          SELECT player_id, ${orderBy}
+          FROM Appearances
+        )
+        SELECT Players.player_id, Players.player_name, SUM(${orderBy}) AS ${orderBy}
+        FROM Players NATURAL JOIN AppearanceData
+        GROUP BY player_id, player_name
+        ORDER BY ${orderBy} DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    }
+  } else if (orderBy === "height") {
+    if (!page) {
+      connection.query(`
+        SELECT player_id, player_name, height_in_cm
+        FROM Players
+        ORDER BY height_in_cm DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    } else {
+      connection.query(`
+        SELECT player_id, player_name, height_in_cm
+        FROM Players
+        ORDER BY height_in_cm DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    }
+  } else if (orderBy === "current_value") {
+    if (!page) {
+      connection.query(`
+        SELECT player_id, player_name, market_value_in_eur
+        FROM Players
+        ORDER BY market_value_in_eur DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    } else {
+      connection.query(`
+        SELECT player_id, player_name, market_value_in_eur
+        FROM Players
+        ORDER BY market_value_in_eur DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    }
+  } else if (orderBy === "highest_value") {
+    if (!page) {
+      connection.query(`
+        SELECT player_id, player_name, highest_market_value_in_eur
+        FROM Players
+        ORDER BY highest_market_value_in_eur DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    } else {
+      connection.query(`
+        SELECT player_id, player_name, highest_market_value_in_eur
+        FROM Players
+        ORDER BY highest_market_value_in_eur DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    }
+  } else {
+    res.status(400).send(`'${req.query.orderBy}' is not a valid attribute by which to sort players. Valid attributes include 'goals', 'assists', 'red_cards', 'yellow_cards', 'minutes_played', 'height', 'current_value', and 'highest_value'.`);
+  }
 }
 
 /******************
@@ -82,7 +221,7 @@ const clubs = async function (req, res) {
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
-      res.json({});
+      res.json([]);
     } else {
       res.json(data);
     }
@@ -94,9 +233,9 @@ const club_id = async function (req, res) {
   const club_id = req.params.club_id;
 
   connection.query(`
-  SELECT *
-  FROM Clubs
-  WHERE club_id = ${club_id}
+    SELECT *
+    FROM Clubs
+    WHERE club_id = ${club_id}
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
@@ -112,15 +251,15 @@ const club_name = async function (req, res) {
   const club_name = req.params.club_name;
 
   connection.query(`
-  SELECT *
-  FROM Clubs
-  WHERE club_name LIKE "%${club_name}%"
+    SELECT *
+    FROM Clubs
+    WHERE club_name LIKE "%${club_name}%"
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
       res.json({});
     } else {
-      res.json(data);
+      res.json(data[0]);
     }
   });
 }
@@ -159,7 +298,7 @@ const top_clubs = async function (req, res) {
       `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          res.json([]);
         } else {
           res.json(data);
         }
@@ -188,7 +327,7 @@ const top_clubs = async function (req, res) {
       `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          res.json([]);
         } else {
           res.json(data);
         }
@@ -212,7 +351,7 @@ const top_clubs = async function (req, res) {
       `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          res.json([]);
         } else {
           res.json(data);
         }
@@ -235,12 +374,14 @@ const top_clubs = async function (req, res) {
       `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
-          res.json({});
+          res.json([]);
         } else {
           res.json(data);
         }
       })
     }
+  } else {
+    res.status(400).send(`'${req.query.orderBy}' is not a valid attribute by which to sort clubs. Valid types are 'goals' and 'value'.`);
   }
 }
 
@@ -248,6 +389,7 @@ module.exports = {
   players,
   player_id,
   player_name,
+  top_players,
   clubs,
   club_id,
   club_name,

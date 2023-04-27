@@ -6,37 +6,56 @@
 <script>
 
 const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'Data One',
-      backgroundColor: '#f87979',
-      data: [40, 39, 10, 40, 39, 80, 40]
+        datasets: [
+            {
+            label: "MESSI",
+            data: [{
+                x: '2021-03-05 23:39:30',
+                y: 50
+            }, {
+                x: '2021-08-05 01:00:28',
+                y: 60
+            }, {
+                x: '2021-11-07 09:00:28',
+                y: 20
+            }]
+        }],
     }
-  ]
-}
 
 const options = {
   responsive: true,
-  maintainAspectRatio: true
+  maintainAspectRatio: true,
+  scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'month'
+                }
+            }
+  }
 }
 
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  TimeScale,
+  TimeSeriesScale,
   PointElement,
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
-
+import 'chartjs-adapter-moment'
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  TimeScale,
+  TimeSeriesScale,
   PointElement,
   LineElement,
   Title,

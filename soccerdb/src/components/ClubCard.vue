@@ -10,7 +10,7 @@
             Name: {{ data.club_name }}
           </h2>
           <p>Roster size: {{ data.squad_size }}</p>
-          <p>Market value (€): {{ data.total_market_value ? Number(data.total_market_value).toLocaleString(undefined) : "unknown" }}</p>
+          <p>Market value (million €): {{ data.total_market_value ? Number(data.total_market_value).toLocaleString(undefined) : "unknown" }}</p>
           <p>Coach name: {{ data.coach_name }}</p>
           <p>Id: {{ data.club_id }}</p>
         </v-card-text>

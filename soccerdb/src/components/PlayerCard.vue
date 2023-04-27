@@ -25,7 +25,7 @@
 
 
 export default {
-  name: 'Players',
+  name: 'PlayerCard',
   props: {
     id: Number
   }

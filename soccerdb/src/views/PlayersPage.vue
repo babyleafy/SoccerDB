@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <v-container>
             <v-row no-gutters>
                 <v-col justify="start">
@@ -12,7 +11,7 @@
                 </v-col>
                 <v-col cols="3">
                     <v-sheet class="pa-2 ma-2">
-                        <Player :id=id></Player>
+                        <PlayerCard :id=id></PlayerCard>
                     </v-sheet>
                 </v-col>
                 <v-col>
@@ -25,15 +24,12 @@
                 </v-row>
                 
             </v-row>
-            
         </v-container>
-        
-
     </div>
 </template>
 
 <script>
-import Player from '@/components/Player.vue'
+import PlayerCard from '@/components/PlayerCard.vue'
 import PlayerSearch from '@/components/PlayerSearch.vue'
 import LineChart from '@/components/LineChart.vue'
 import SelectedPlayers from '@/components/SelectedPlayers.vue'
@@ -41,7 +37,7 @@ import SelectedPlayers from '@/components/SelectedPlayers.vue'
 export default {
     name: 'PlayersPage',
     components: {
-        Player,
+        PlayerCard,
         PlayerSearch,
         LineChart,
         SelectedPlayers

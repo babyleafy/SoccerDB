@@ -14,8 +14,6 @@
                         <ClubCard :id=id></ClubCard>
                     </v-sheet>
                 </v-col>
-                
-                
             </v-row>
             <v-col>
                     <SelectedClubs

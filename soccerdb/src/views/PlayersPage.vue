@@ -20,7 +20,7 @@
                         @removeSelectedPlayer="removeSelectedPlayer($event)"/>
                 </v-col>
                 <v-row>
-                    <LineChart/>
+                    <LineChart :key="chartKey" @fetch-data="fetchGoals"/>
                 </v-row>
                 
             </v-row>
@@ -34,6 +34,8 @@ import PlayerSearch from '@/components/PlayerSearch.vue'
 import LineChart from '@/components/LineChart.vue'
 import SelectedPlayers from '@/components/SelectedPlayers.vue'
 
+const config = require('../../config.json')
+
 export default {
     name: 'PlayersPage',
     components: {
@@ -45,7 +47,12 @@ export default {
     data() {
         return {
             id: null,
-            selected: new Map()
+            selected: new Map(),
+            goalMap: new Map(),
+            goalData: {
+                datasets: []
+            },
+            chartKey: 0
         }
     },
     methods: {
@@ -55,9 +62,61 @@ export default {
 
         addSelectedPlayer(data) {
             this.selected.set(data.key, data.value)
+            this.chartKey += 1
         },
         removeSelectedPlayer(key) {
             this.selected.delete(key)
+            this.chartKey += 1
+        },
+        async fetchGoals(setData) {
+            const fetchData = async () => { 
+                console.log('asdf')
+                for (const [id] of this.selected) {
+                    console.log(id)
+                    console.log(`${config.backend_url}/player_goals/${id}`)
+                    if (!this.goalMap.has(id)) {
+                        await fetch(`${config.backend_url}/player_goals/${id}`).then(
+                            res => {
+                                if (res.ok) {
+                                    return res.json()
+                                }
+                            }
+                        ).then(
+                            res => {
+                                console.log(res)
+                                const chartPoint = {
+                                    label: res[0].player_name,
+                                    data: []
+                                }
+                                res.forEach((season) => {
+                                    chartPoint.data.push(
+                                        {
+                                            x: season.season,
+                                            y: season.goal_count
+                                        }
+                                    )
+                                })
+                                console.log(chartPoint)
+                                this.goalMap.set(id, chartPoint)
+                            }
+                        )
+                    }
+                }
+                this.goalData.datasets.length = 0
+                
+                for (const [key] of this.goalMap) {
+                    console.log(key)
+                    console.log(this.goalMap.get(key))
+                    this.goalData.datasets.push(this.goalMap.get(key))
+                }
+                console.log('hello')
+                console.log(this.goalData)
+                
+                setData(this.goalData)
+            }
+            await fetchData()
+            
+            
         }
     }
 }

@@ -73,6 +73,7 @@ const player_name = async function (req, res) {
 /***************************
  * ADVANCED PLAYER ROUTES *
  ***************************/
+// GET /top/players
 const top_players = async function (req, res) {
   const page = req.query.page;
   const pageSize = req.query.page_size ? req.query.page_size : 10;
@@ -209,6 +210,26 @@ const top_players = async function (req, res) {
   }
 }
 
+// GET /player_goals
+const player_goals = async function (req, res) {
+  const player_id = req.params.player_id;
+
+  connection.query(`
+    SELECT player_id, player_name, club_name, season, SUM(goals)
+    FROM (Players NATURAL JOIN Appearances NATURAL JOIN Games) JOIN Clubs on player_club_id = Clubs.club_id
+    WHERE player_id = ${player_id}
+    GROUP BY player_id, player_name, season, club_name
+    ORDER BY season DESC, club_name ASC
+  `, (err, data) => {
+    if (err || data.length === 0) {
+      console.log(err);
+      res.json([]);
+    } else {
+      res.json(data);
+    }
+  });
+}
+
 /******************
  * CLUBS ROUTES *
  ******************/
@@ -216,8 +237,8 @@ const top_players = async function (req, res) {
 // GET /clubs
 const clubs = async function (req, res) {
   connection.query(`
-  SELECT *
-  FROM Clubs
+    SELECT *
+    FROM Clubs
   `, (err, data) => {
     if (err || data.length === 0) {
       console.log(err);
@@ -390,6 +411,7 @@ module.exports = {
   player_id,
   player_name,
   top_players,
+  player_goals,
   clubs,
   club_id,
   club_name,

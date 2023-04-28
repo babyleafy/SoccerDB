@@ -215,7 +215,7 @@ const player_goals = async function (req, res) {
   const player_id = req.params.player_id;
 
   connection.query(`
-    SELECT player_id, player_name, club_name, season, SUM(goals)
+    SELECT player_id, player_name, club_name, season, SUM(goals) as goal_count
     FROM (Players NATURAL JOIN Appearances NATURAL JOIN Games) JOIN Clubs on player_club_id = Clubs.club_id
     WHERE player_id = ${player_id}
     GROUP BY player_id, player_name, season, club_name
@@ -280,7 +280,7 @@ const club_name = async function (req, res) {
       console.log(err);
       res.json({});
     } else {
-      res.json(data[0]);
+      res.json(data);
     }
   });
 }

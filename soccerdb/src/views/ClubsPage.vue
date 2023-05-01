@@ -11,7 +11,7 @@
                 </v-col>
                 <v-col cols="3">
                     <v-sheet class="pa-2 ma-2">
-                        <ClubCard :id=id></ClubCard>
+                        <ClubCard :id=id :top-player="topScorer"/>
                     </v-sheet>
                 </v-col>
             </v-row>
@@ -51,12 +51,23 @@ export default {
             selectedTrophyData: new Map(),
             chartLabels: [],
             chartData: [],
-            chartKey: 0
+            chartKey: 0,
+            topPlayersData: [],
+            topScorer: ""
         }
     },
     methods: {
         changeHoveredClub(id) {
             this.id = id
+            console.log(this.topPlayersData)
+            for (let i = 0; i < this.topPlayersData.length; i++) {
+                if (this.topPlayersData[i].club_id === this.id) {
+                    this.topScorer = this.topPlayersData[i].player_name
+                    console.log(this.topScorer)
+                    return
+                }
+            }
+            this.topScorer = ""
         },
         addSelectedClub(data) {
             
@@ -73,16 +84,30 @@ export default {
             this.selected.delete(key.club_id)
             this.selectedTrophyData.delete(key.club_name)
             this.chartKey += 1
+        },
+        setTrophyData() {
+            const url = `http://localhost:8081/top_clubs/knockout_trophies`;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.clubTrophies = data;
+            })
+            .catch(error => console.error(error));
+        },
+        setTopPlayersData() {
+            const url = `http://localhost:8081/top_players_in_clubs`;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.topPlayersData = data;
+            })
+            .catch(error => console.error(error));
         }
     },
     mounted() {
-        const url = `http://localhost:8081/top_clubs/knockout_trophies`;
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            this.clubTrophies = data;
-          })
-          .catch(error => console.error(error));
+        
+        this.setTrophyData()
+        this.setTopPlayersData()
     }
 }
 </script>

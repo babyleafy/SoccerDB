@@ -12,6 +12,7 @@
           <p>Roster size: {{ data.squad_size }}</p>
           <p>Market value (million €): {{ data.total_market_value ? Number(data.total_market_value).toLocaleString(undefined) : "unknown" }}</p>
           <p>Coach name: {{ data.coach_name }}</p>
+          <p>Top Player: {{ topPlayer }}</p>
           <p>Id: {{ data.club_id }}</p>
         </v-card-text>
     </v-card>
@@ -21,7 +22,8 @@
 
 export default {
     props: {
-        id: Number
+        id: Number,
+        topPlayer: String
     },
     data() {
         return {

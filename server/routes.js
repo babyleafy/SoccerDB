@@ -482,7 +482,7 @@ const top_clubs = async function (req, res) {
         }
       })
     }
-  } else if (orderBy === "trophies") {
+  } else if (orderBy === "knockout_trophies") {
     if (!page) {
       connection.query(`
         WITH HomeTrophies AS (
@@ -496,9 +496,9 @@ const top_clubs = async function (req, res) {
           WHERE home_club_goals < away_club_goals AND round = 'Final'
           GROUP BY away_club_id
         )
-        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS total_trophies
+        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
         FROM Clubs C LEFT OUTER JOIN (HomeTrophies JOIN AwayTrophies ON HomeTrophies.home_club_id = AwayTrophies.away_club_id) ON C.club_id = HomeTrophies.home_club_id
-        ORDER BY total_trophies DESC
+        ORDER BY knockout_trophies DESC
       `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
@@ -520,9 +520,38 @@ const top_clubs = async function (req, res) {
           WHERE home_club_goals < away_club_goals AND round = 'Final'
           GROUP BY away_club_id
         )
-        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS total_trophies
+        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
         FROM Clubs C LEFT OUTER JOIN (HomeTrophies JOIN AwayTrophies ON HomeTrophies.home_club_id = AwayTrophies.away_club_id) ON C.club_id = HomeTrophies.home_club_id
-        ORDER BY total_trophies DESC
+        ORDER BY knockout_trophies DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      });
+    }
+  } else if (orderBy === 'average_age') {
+    if (!page) {
+      connection.query(`
+        SELECT club_id, club_name, average_age
+        FROM Clubs
+        ORDER by average_age DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      });
+    } else {
+      connection.query(`
+        SELECT club_id, club_name, average_age
+        FROM Clubs
+        ORDER by average_age DESC
         LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
       `, (err, data) => {
         if (err || data.length === 0) {

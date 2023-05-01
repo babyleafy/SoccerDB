@@ -89,9 +89,10 @@ export default {
                                     data: []
                                 }
                                 res.forEach((season) => {
+                                    console.log(season.season)
                                     chartPoint.data.push(
                                         {
-                                            x: season.season,
+                                            x: `${season.season}-01-01 23:39:30`,
                                             y: season.goal_count
                                         }
                                     )

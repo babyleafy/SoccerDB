@@ -29,7 +29,8 @@ const options = {
             x: {
                 type: 'time',
                 time: {
-                    unit: 'month'
+                    unit: 'year',
+                    tooltipFormat: 'YYYY'
                 }
             }
   }

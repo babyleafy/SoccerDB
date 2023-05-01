@@ -29,7 +29,8 @@ const options = {
             x: {
                 type: 'time',
                 time: {
-                    unit: 'month'
+                    unit: 'year',
+                    tooltipFormat: 'YYYY'
                 }
             }
   }
@@ -68,8 +69,21 @@ export default {
     components: {
         Line
     },
+    emits: [
+        "fetchData",
+    ],
     data() {
         return {data, options}
+    },
+    methods: {
+        setData(d) {
+            this.data = d
+        }
+    },
+    mounted() {
+        this.$emit("fetchData", (d) => this.setData(d))
+        console.log('MOUNTED')
+        console.log(this.data)
     }
 }
 </script>

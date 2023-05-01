@@ -16,7 +16,8 @@ app.get('/player_name/:player_name', routes.player_name);
 app.get('/clubs', routes.clubs);
 app.get('/club_id/:club_id', routes.club_id);
 app.get('/club_name/:club_name', routes.club_name);
-app.get('/top_clubs/:orderBy', routes.top_clubs);
+app.get('/top_players/:orderBy', routes.top_players);
+  app.get('/top_clubs/:orderBy', routes.top_clubs);
 app.get('/player_goals/:player_id', routes.player_goals);
 
 app.listen(config.server_port, () => {

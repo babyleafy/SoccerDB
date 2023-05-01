@@ -75,9 +75,9 @@ const player_name = async function (req, res) {
  ***************************/
 // GET /top/players
 const top_players = async function (req, res) {
-  const page = req.query.page;
+  const page = req.query.page ? req.query.page : 1;
   const pageSize = req.query.page_size ? req.query.page_size : 10;
-  const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
+  const orderBy = req.params.orderBy ? req.params.orderBy : "goals";
 
   if (orderBy === "goals" || orderBy === "assists" || orderBy === "red_cards" || orderBy === "yellow_cards" || orderBy === "minutes_played") {
     if (!page) {
@@ -121,7 +121,7 @@ const top_players = async function (req, res) {
   } else if (orderBy === "height") {
     if (!page) {
       connection.query(`
-        SELECT player_id, player_name, height_in_cm
+        SELECT player_id, player_name, height_in_cm AS height
         FROM Players
         ORDER BY height_in_cm DESC
       `, (err, data) => {
@@ -134,7 +134,7 @@ const top_players = async function (req, res) {
       })
     } else {
       connection.query(`
-        SELECT player_id, player_name, height_in_cm
+        SELECT player_id, player_name, height_in_cm AS height
         FROM Players
         ORDER BY height_in_cm DESC
         LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
@@ -150,7 +150,7 @@ const top_players = async function (req, res) {
   } else if (orderBy === "current_value") {
     if (!page) {
       connection.query(`
-        SELECT player_id, player_name, market_value_in_eur
+        SELECT player_id, player_name, market_value_in_eur AS current_value
         FROM Players
         ORDER BY market_value_in_eur DESC
       `, (err, data) => {
@@ -163,7 +163,7 @@ const top_players = async function (req, res) {
       })
     } else {
       connection.query(`
-        SELECT player_id, player_name, market_value_in_eur
+        SELECT player_id, player_name, market_value_in_eur AS current_value
         FROM Players
         ORDER BY market_value_in_eur DESC
         LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
@@ -179,7 +179,7 @@ const top_players = async function (req, res) {
   } else if (orderBy === "highest_value") {
     if (!page) {
       connection.query(`
-        SELECT player_id, player_name, highest_market_value_in_eur
+        SELECT player_id, player_name, highest_market_value_in_eur AS highest_value
         FROM Players
         ORDER BY highest_market_value_in_eur DESC
       `, (err, data) => {
@@ -192,7 +192,7 @@ const top_players = async function (req, res) {
       })
     } else {
       connection.query(`
-        SELECT player_id, player_name, highest_market_value_in_eur
+        SELECT player_id, player_name, highest_market_value_in_eur AS highest_value
         FROM Players
         ORDER BY highest_market_value_in_eur DESC
         LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
@@ -292,9 +292,9 @@ const club_name = async function (req, res) {
 
 // GET /top_clubs/:orderBy
 const top_clubs = async function (req, res) {
-  const page = req.query.page;
+  const page = req.query.page ? req.query.page : 1;
   const pageSize = req.query.page_size ? req.query.page_size : 10;
-  const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
+  const orderBy = req.params.orderBy ? req.params.orderBy : "goals";
   if (orderBy === "goals") {
     if (!page) {
       connection.query(`

@@ -1,5 +1,5 @@
 <template>
-    <h1>SELECTEDCLUBS</h1>
+    <h1>Selected Clubs</h1>
     <div id="selection" v-if="selected">
         <v-data-table-virtual v-if="selected"
                 class=".custom-table"   
@@ -40,7 +40,7 @@ export default {
     methods: {
         handleRowClick(event, {item}) {
             if (window.getSelection().toString().length === 0) {
-                this.$emit("removeSelectedClub", item.columns.club_id)
+                this.$emit("removeSelectedClub", item.columns)
             }
         }
     }

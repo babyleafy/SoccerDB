@@ -1,5 +1,5 @@
 <template>
-    <h1> LINECHART </h1>
+    <h1> {{title}} </h1>
     <Line :data="data" :options="options" />
 </template>
 
@@ -68,6 +68,9 @@ export default {
     name: "LineChart",
     components: {
         Line
+    },
+    props: {
+        title: String
     },
     emits: [
         "fetchData",

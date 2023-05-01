@@ -20,7 +20,7 @@
                         @removeSelectedPlayer="removeSelectedPlayer($event)"/>
                 </v-col>
                 <v-row>
-                    <LineChart :key="chartKey" @fetch-data="fetchGoals"/>
+                    <LineChart title="Goals Scored" :key="chartKey" @fetch-data="fetchGoals"/>
                 </v-row>
                 
             </v-row>

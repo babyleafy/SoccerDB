@@ -46,12 +46,12 @@ const closeMongoDBConnection = async () => {
 
 const getStats = async (name) => {
   const db = await getDB();
-  const results = await db.collection('FifaStats').find({
+  const results = await db.collection('FifaStats').findOne({
     long_name: {
       $regex: name.split(' ').map(w => `\\b${w}\\b`).join('.*'),
       $options: 'i'
     }
-  }).limit(1)
+  });
   return results;
 };
 

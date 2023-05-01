@@ -47,7 +47,7 @@
             <tbody>
               <tr v-for="(player, index) in currentPlayers" :key="orderBy === 'overall' ? player._id : player.player_id"
                 :class="getClass((currentPage - 1) * pageSize + index + 1) + (selectedPlayerId === player.player_id ? ' selected' : '')"
-                @click="selectedPlayerId = orderBy === 'overall' ? null : player.player_id">
+                @click="orderBy === 'overall' ? selectPlayer(null, null) : selectPlayer(player.player_id, player.player_name)">
                 <td>{{ (currentPage - 1) * pageSize + index + 1 }}</td>
                 <td>{{ orderBy === 'overall' ? player.long_name : player.player_name }}</td>
                 <td>{{ player.club }}</td>
@@ -60,7 +60,7 @@
               </tr>
             </tbody>
         </table>
-        <PlayerCard v-if="selectedPlayerId" :id="selectedPlayerId" class="player-card"/>
+        <PlayerCard v-if="selectedPlayerId" :id="selectedPlayerId" :name="selectedPlayerName" class="player-card"/>
       </div>
       <div class="pagination" v-if="orderBy !== ''" :style="{ pointerEvents: orderBy === '' ? 'none' : 'auto' }">
         <button :disabled="currentPage === 1" @click="prevPage()">Previous</button>
@@ -89,6 +89,7 @@
         currentPage: 1,
         pageSize: 10,
         selectedPlayerId: null,
+        selectedPlayerName: null,
       };
     },
     computed: {
@@ -119,8 +120,13 @@
       },
     },
     methods: {
+      selectPlayer(playerId, playerName) {
+        this.selectedPlayerId = playerId;
+        this.selectedPlayerName = playerName;
+      },
       async sendMongoRequest(orderBy) {
         const url = 'http://localhost:8081/top_fifa';
+        this.orderBy = orderBy;
         try {
           const response = await fetch(url, {
             method: 'GET',
@@ -128,18 +134,17 @@
           });
           const data = await response.json();
           this.players = data.data;
-          this.orderBy = orderBy;
         } catch (error) {
           return { error };
         }
       },
       sendRequest(orderBy) {
         const url = `http://localhost:8081/top_players/${orderBy}`;
+        this.orderBy = orderBy;
         fetch(url)
           .then(response => response.json())
           .then(data => {
             this.players = data;
-            this.orderBy = orderBy;
           })
           .catch(error => console.error(error));
       }, 

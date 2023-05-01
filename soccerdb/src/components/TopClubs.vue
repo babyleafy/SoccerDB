@@ -110,11 +110,11 @@
     methods: {
       sendRequest(orderBy) {
         const url = `http://localhost:8081/top_clubs/${orderBy}`;
+        this.orderBy = orderBy;
         fetch(url)
           .then(response => response.json())
           .then(data => {
             this.clubs = data;
-            this.orderBy = orderBy;
           })
           .catch(error => console.error(error));
       }, 

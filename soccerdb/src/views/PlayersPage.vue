@@ -11,7 +11,7 @@
                 </v-col>
                 <v-col cols="3">
                     <v-sheet class="pa-2 ma-2">
-                        <PlayerCard :id=id></PlayerCard>
+                        <PlayerCard :id=id :name=name></PlayerCard>
                     </v-sheet>
                 </v-col>
                 <v-col>
@@ -45,12 +45,14 @@ export default {
     data() {
         return {
             id: null,
+            name: null,
             selected: new Map()
         }
     },
     methods: {
-        changeHoveredPlayer(id) {
-            this.id = id
+        changeHoveredPlayer(data) {
+            this.id = data.id;
+            this.name = data.name;
         },
 
         addSelectedPlayer(data) {

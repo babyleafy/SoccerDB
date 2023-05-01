@@ -112,8 +112,7 @@ export default {
                 item.columns != null &&
                 item.columns.player_id != null
             ) {
-                this.$emit('changeHoveredPlayer', item.columns.player_id)
-
+                this.$emit('changeHoveredPlayer', {id: item.columns.player_id, name: item.columns.player_name})
                 this.$emit('addSelectedPlayer', {
                     key:item.columns.player_id, 
                     value:item.columns

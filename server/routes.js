@@ -2,33 +2,6 @@ const mysql = require('mysql')
 const config = require('./config.json')
 const NodeCache = require("node-cache");
 
-connection.query(`
-  WITH HomeGoals AS (
-    SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-    FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
-    GROUP BY player_club_id, Games.game_id
-  ),
-  AwayGoals AS (
-    SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-    FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
-    GROUP BY player_club_id, Games.game_id
-  ),
-  ClubNames AS (
-    SELECT club_id, club_name
-    FROM Clubs
-  )
-  SELECT HomeGoals.club_id, club_name, AVG(HomeGoals.club_goals) AS avg_home_goals, AVG(AwayGoals.club_goals) AS avg_away_goals
-  FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
-  GROUP BY club_id, club_name
-  ORDER BY avg_home_goals DESC, avg_away_goals DESC
-`, (err, data) => {
-  if (err || data.length === 0) {
-    console.log(err);
-  } else {
-    NodeCache.set("top_clubs_goals", data);
-  }
-});
-
 // Creates MySQL connection using database credential provided in config.json
 const connection = mysql.createConnection({
   host: config.rds_host,
@@ -38,6 +11,9 @@ const connection = mysql.createConnection({
   database: config.rds_db
 });
 connection.connect((err) => err && console.log(err));
+
+// Initialize the cache
+const cache = new NodeCache();
 
 /******************
  * PLAYER ROUTES *
@@ -105,27 +81,33 @@ const player_name = async function (req, res) {
 const top_players = async function (req, res) {
   const page = req.query.page;
   const pageSize = req.query.page_size ? req.query.page_size : 10;
-  const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
+  const orderBy = req.params.orderBy ? req.params.orderBy : "goals";
 
   if (orderBy === "goals" || orderBy === "assists" || orderBy === "red_cards" || orderBy === "yellow_cards" || orderBy === "minutes_played") {
     if (!page) {
-      connection.query(`
-        WITH AppearanceData AS (
-          SELECT player_id, ${orderBy}
-          FROM Appearances
-        )
-        SELECT Players.player_id, Players.player_name, SUM(${orderBy}) AS ${orderBy}
-        FROM Players NATURAL JOIN AppearanceData
-        GROUP BY player_id, player_name
-        ORDER BY ${orderBy} DESC
-      `, (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          res.json([]);
-        } else {
-          res.json(data);
-        }
-      })
+      data = cache.get("top_players_" + orderBy);
+      if (data == undefined) {
+        connection.query(`
+          WITH AppearanceData AS (
+            SELECT player_id, ${orderBy}
+            FROM Appearances
+          )
+          SELECT Players.player_id, Players.player_name, SUM(${orderBy}) AS ${orderBy}
+          FROM Players NATURAL JOIN AppearanceData
+          GROUP BY player_id, player_name
+          ORDER BY ${orderBy} DESC
+        `, (err, data) => {
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json([]);
+          } else {
+            cache.set("top_players_" + orderBy, data)
+            res.json(data);
+          }
+        });
+      } else {
+        res.json(data);
+      }
     } else {
       connection.query(`
         WITH AppearanceData AS (
@@ -144,7 +126,7 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     }
   } else if (orderBy === "height") {
     if (!page) {
@@ -159,7 +141,7 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     } else {
       connection.query(`
         SELECT player_id, player_name, height_in_cm
@@ -173,7 +155,7 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     }
   } else if (orderBy === "current_value") {
     if (!page) {
@@ -188,7 +170,7 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     } else {
       connection.query(`
         SELECT player_id, player_name, market_value_in_eur
@@ -202,7 +184,7 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     }
   } else if (orderBy === "highest_value") {
     if (!page) {
@@ -217,7 +199,7 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     } else {
       connection.query(`
         SELECT player_id, player_name, highest_market_value_in_eur
@@ -231,10 +213,10 @@ const top_players = async function (req, res) {
         } else {
           res.json(data);
         }
-      })
+      });
     }
   } else {
-    res.status(400).send(`'${req.query.orderBy}' is not a valid attribute by which to sort players. Valid attributes include 'goals', 'assists', 'red_cards', 'yellow_cards', 'minutes_played', 'height', 'current_value', and 'highest_value'.`);
+    res.status(400).send(`'${req.params.orderBy}' is not a valid attribute by which to sort players. Valid attributes include 'goals', 'assists', 'red_cards', 'yellow_cards', 'minutes_played', 'height', 'current_value', and 'highest_value'.`);
   }
 }
 
@@ -322,38 +304,11 @@ const club_name = async function (req, res) {
 const top_clubs = async function (req, res) {
   const page = req.query.page;
   const pageSize = req.query.page_size ? req.query.page_size : 10;
-  const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
+  const orderBy = req.params.orderBy ? req.params.orderBy : "goals";
   if (orderBy === "goals") {
     if (!page) {
-      // connection.query(`
-      //   WITH HomeGoals AS (
-      //     SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-      //     FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
-      //     GROUP BY player_club_id, Games.game_id
-      //   ),
-      //   AwayGoals AS (
-      //     SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-      //     FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
-      //     GROUP BY player_club_id, Games.game_id
-      //   ),
-      //   ClubNames AS (
-      //     SELECT club_id, club_name
-      //     FROM Clubs
-      //   )
-      //   SELECT HomeGoals.club_id, club_name, AVG(HomeGoals.club_goals) AS avg_home_goals, AVG(AwayGoals.club_goals) AS avg_away_goals
-      //   FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
-      //   GROUP BY club_id, club_name
-      //   ORDER BY avg_home_goals DESC, avg_away_goals DESC
-      // `, (err, data) => {
-      //   if (err || data.length === 0) {
-      //     console.log(err);
-      //     res.json([]);
-      //   } else {
-      //     res.json(data);
-      //   }
-      // });
-      data = NodeCache.get("top_clubs_goals");
-      if (value == undefined) {
+      data = cache.get("top_clubs_goals");
+      if (data == undefined) {
         connection.query(`
           WITH HomeGoals AS (
             SELECT player_club_id AS club_id, SUM(goals) AS club_goals
@@ -378,7 +333,7 @@ const top_clubs = async function (req, res) {
             console.log(err);
             res.json([]);
           } else {
-            NodeCache.set("top_clubs_goals", data);
+            cache.set("top_clubs_goals", data);
             res.json(data);
           }
         });
@@ -463,7 +418,7 @@ const top_clubs = async function (req, res) {
       })
     }
   } else {
-    res.status(400).send(`'${req.query.orderBy}' is not a valid attribute by which to sort clubs. Valid types are 'goals' and 'value'.`);
+    res.status(400).send(`'${req.params.orderBy}' is not a valid attribute by which to sort clubs. Valid types are 'goals' and 'value'.`);
   }
 }
 

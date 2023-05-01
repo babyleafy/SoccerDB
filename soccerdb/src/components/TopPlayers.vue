@@ -1,72 +1,75 @@
 <template>
-    <div class="container text-center">
-      <div class="title">
-        <h1>Top Players</h1>
-        <h2>Which attribute do you want to rank by?</h2>
-      </div>
-        <div class="button-group">
-            <button class="rounded text-black" :class="{'bg-blue-500 text-white': orderBy === 'goals'}" @click="sendRequest('goals')">
-              Goals <i class="emoji">⚽️</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-green-500 text-white': orderBy === 'assists'}" @click="sendRequest('assists')">
-              Assists <i class="emoji">🙌</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-red-500 text-white': orderBy === 'red_cards'}" @click="sendRequest('red_cards')">
-              Red Cards <i class="emoji">🟥</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-yellow-500 text-white': orderBy === 'yellow_cards'}" @click="sendRequest('yellow_cards')">
-              Yellow Cards <i class="emoji">🟨</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-indigo-500 text-white': orderBy === 'minutes_played'}" @click="sendRequest('minutes_played')">
-              Minutes <i class="emoji">⏱️</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-purple-500 text-white': orderBy === 'height'}" @click="sendRequest('height')">
-              Height <i class="emoji">📏</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-pink-500 text-white': orderBy === 'current_value'}" @click="sendRequest('current_value')">
-              Current Value <i class="emoji">💰</i>
-            </button>
-            <button class="rounded text-black" :class="{'bg-gray-500 text-white': orderBy === 'highest_value'}" @click="sendRequest('highest_value')">
-              Highest Value <i class="emoji">📈</i>
-            </button>
-        </div>
-        <div class="table-container">
-          <table class="centered">
-              <thead>
-              <tr>
-                  <th>Rank</th>
-                  <th>Name</th>
-                  <th>Club</th>
-                  <th>Position</th>
-                  <th>{{ orderBy }}</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(player, index) in currentPlayers" :key="player.player_id"
-                  :class="getClass((currentPage - 1) * pageSize + index + 1) + (selectedPlayerId === player.player_id ? ' selected' : '')"
-                  @click="selectedPlayerId = player.player_id">
-                  <td>{{ (currentPage - 1) * pageSize + index + 1 }}</td>
-                  <td>{{ player.player_name }}</td>
-                  <td>{{ player.club }}</td>
-                  <td>{{ player.position }}</td>
-                  <td>{{ player[orderBy] }}</td>
-                </tr>
-              </tbody>
-          </table>
-          <PlayerCard v-if="selectedPlayerId" :id="selectedPlayerId" class="player-card"/>
-        </div>
-        <div class="pagination" v-if="orderBy !== ''" :style="{ pointerEvents: orderBy === '' ? 'none' : 'auto' }">
-          <button :disabled="currentPage === 1" @click="prevPage()">Previous</button>
-          <button v-if="currentPage > 3" @click="goToPage(1)">1</button>
-          <span v-if="currentPage > 4">...</span>
-          <button v-for="page in visiblePages" :key="page" :class="{ active: currentPage === page }" @click="goToPage(page)">{{ page }}</button>
-          <span v-if="currentPage < pageCount - 3">...</span>
-          <button v-if="currentPage < pageCount - 2" @click="goToPage(pageCount)">{{ pageCount }}</button>
-          <button :disabled="currentPage === pageCount" @click="nextPage()">Next</button>
-        </div>
-
+  <div class="container text-center">
+    <div class="title">
+      <h1>Top Players</h1>
+      <h2>Which attribute do you want to rank by?</h2>
     </div>
-  </template>
+      <div class="button-group">
+          <button class="rounded text-black" :class="{'bg-blue-500 text-white': orderBy === 'goals'}" @click="sendRequest('goals')">
+            Goals <i class="emoji">⚽️</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-green-500 text-white': orderBy === 'assists'}" @click="sendRequest('assists')">
+            Assists <i class="emoji">🙌</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-red-500 text-white': orderBy === 'red_cards'}" @click="sendRequest('red_cards')">
+            Red Cards <i class="emoji">🟥</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-yellow-500 text-white': orderBy === 'yellow_cards'}" @click="sendRequest('yellow_cards')">
+            Yellow Cards <i class="emoji">🟨</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-indigo-500 text-white': orderBy === 'minutes_played'}" @click="sendRequest('minutes_played')">
+            Minutes <i class="emoji">⏱️</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-purple-500 text-white': orderBy === 'height'}" @click="sendRequest('height')">
+            Height <i class="emoji">📏</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-pink-500 text-white': orderBy === 'current_value'}" @click="sendRequest('current_value')">
+            Current Value <i class="emoji">💰</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-gray-500 text-white': orderBy === 'highest_value'}" @click="sendRequest('highest_value')">
+            Highest Value <i class="emoji">📈</i>
+          </button>
+      </div>
+      <div class="table-container">
+        <table class="centered">
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Club</th>
+                <th>Position</th>
+                <th>{{ orderBy.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(player, index) in currentPlayers" :key="player.player_id"
+                :class="getClass((currentPage - 1) * pageSize + index + 1) + (selectedPlayerId === player.player_id ? ' selected' : '')"
+                @click="selectedPlayerId = player.player_id">
+                <td>{{ (currentPage - 1) * pageSize + index + 1 }}</td>
+                <td>{{ player.player_name }}</td>
+                <td>{{ player.club }}</td>
+                <td>{{ player.position }}</td>
+                <td>
+                  {{ orderBy === 'current_value' || orderBy === 'highest_value'
+                    ? player[orderBy].toLocaleString('en-US', { style: 'currency', currency: 'EUR' })
+                    : player[orderBy] }}
+                </td>               
+              </tr>
+            </tbody>
+        </table>
+        <PlayerCard v-if="selectedPlayerId" :id="selectedPlayerId" class="player-card"/>
+      </div>
+      <div class="pagination" v-if="orderBy !== ''" :style="{ pointerEvents: orderBy === '' ? 'none' : 'auto' }">
+        <button :disabled="currentPage === 1" @click="prevPage()">Previous</button>
+        <button v-if="currentPage > 3" @click="goToPage(1)">1</button>
+        <span v-if="currentPage > 4">...</span>
+        <button v-for="page in visiblePages" :key="page" :class="{ active: currentPage === page }" @click="goToPage(page)">{{ page }}</button>
+        <span v-if="currentPage < pageCount - 3">...</span>
+        <button v-if="currentPage < pageCount - 2" @click="goToPage(pageCount)">{{ pageCount }}</button>
+        <button :disabled="currentPage === pageCount" @click="nextPage()">Next</button>
+      </div>
+  </div>
+</template>
   
   <script>
   import PlayerCard from '@/components/PlayerCard.vue'
@@ -121,7 +124,7 @@
             this.players = data;
           })
           .catch(error => console.error(error));
-         this.orderBy = orderBy;
+        this.orderBy = orderBy;
       }, 
       getClass(index) {
         if (index === 1) {
@@ -162,9 +165,16 @@
   .table-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: stretch;
     width: 100%;
+    position: relative;
+  }
+
+  .player-card {
+    flex: 0 0 300px; /* Set the width of the player card */
+    height: 100%; /* Make the player card take up the full height of the table */
+    overflow: auto; /* Add scrollbars if needed */
   }
 
   .table-container > table {

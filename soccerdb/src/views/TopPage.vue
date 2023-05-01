@@ -41,17 +41,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 5px;
   }
 
   .title {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    padding: 5px;
+    margin: 0px;
   }
 
   .btn-group {
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
   }
 
   .btn {

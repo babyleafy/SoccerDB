@@ -1,5 +1,5 @@
 <template>
-    <h2>Selected Players</h2>
+    <h1> Selected Players </h1>
     <div id="selection" v-if="selected">
         <v-data-table-virtual v-if="selected"
                 class=".custom-table"   

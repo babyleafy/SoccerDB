@@ -1,5 +1,5 @@
 <template>
-    <h1> LINECHART </h1>
+    <h1> {{title}} </h1>
     <Line :data="data" :options="options" />
 </template>
 
@@ -29,7 +29,8 @@ const options = {
             x: {
                 type: 'time',
                 time: {
-                    unit: 'month'
+                    unit: 'year',
+                    tooltipFormat: 'YYYY'
                 }
             }
   }
@@ -68,8 +69,24 @@ export default {
     components: {
         Line
     },
+    props: {
+        title: String
+    },
+    emits: [
+        "fetchData",
+    ],
     data() {
         return {data, options}
+    },
+    methods: {
+        setData(d) {
+            this.data = d
+        }
+    },
+    mounted() {
+        this.$emit("fetchData", (d) => this.setData(d))
+        console.log('MOUNTED')
+        console.log(this.data)
     }
 }
 </script>

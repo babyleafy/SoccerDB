@@ -372,10 +372,10 @@ const top_clubs = async function (req, res) {
       })
     }
   } else if (orderBy === "total_goals") {
-      if (!page) {
-        data = cache.get("total_goals");
-        if (data == undefined) {
-          connection.query(`
+    if (!page) {
+      data = cache.get("total_goals");
+      if (data == undefined) {
+        connection.query(`
             WITH HomeGoals AS (
               SELECT player_club_id AS club_id, SUM(goals) AS club_goals
               FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
@@ -395,19 +395,19 @@ const top_clubs = async function (req, res) {
             GROUP BY club_id, club_name
             ORDER BY total_goals DESC
           `, (err, data) => {
-            if (err || data.length === 0) {
-              console.log(err);
-              res.json([]);
-            } else {
-              cache.set("total_goals", data);
-              res.json(data);
-            }
-          });
-        } else {
-          res.json(data);
-        }
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json([]);
+          } else {
+            cache.set("total_goals", data);
+            res.json(data);
+          }
+        });
       } else {
-        connection.query(`
+        res.json(data);
+      }
+    } else {
+      connection.query(`
           WITH HomeGoals AS (
             SELECT player_club_id AS club_id, SUM(goals) AS club_goals
             FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
@@ -428,14 +428,14 @@ const top_clubs = async function (req, res) {
           ORDER BY total_goals DESC
           LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
         `, (err, data) => {
-          if (err || data.length === 0) {
-            console.log(err);
-            res.json([]);
-          } else {
-            res.json(data);
-          }
-        })
-      }
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      })
+    }
   } else if (orderBy === "value") {
     if (!page) {
       connection.query(`
@@ -483,8 +483,143 @@ const top_clubs = async function (req, res) {
         }
       })
     }
+  } else if (orderBy === "knockout_trophies") {
+    if (!page) {
+      connection.query(`
+        WITH HomeTrophies AS (
+          SELECT home_club_id, COUNT(*) AS num_trophies
+          FROM Games
+          WHERE home_club_goals > away_club_goals AND round = 'Final'
+          GROUP BY home_club_id
+        ), AwayTrophies AS (
+          SELECT away_club_id, COUNT(*) AS num_trophies
+          FROM Games
+          WHERE home_club_goals < away_club_goals AND round = 'Final'
+          GROUP BY away_club_id
+        )
+        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
+        FROM Clubs C LEFT OUTER JOIN (HomeTrophies JOIN AwayTrophies ON HomeTrophies.home_club_id = AwayTrophies.away_club_id) ON C.club_id = HomeTrophies.home_club_id
+        ORDER BY knockout_trophies DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      });
+    } else {
+      connection.query(`
+        WITH HomeTrophies AS (
+          SELECT home_club_id, COUNT(*) AS num_trophies
+          FROM Games
+          WHERE home_club_goals > away_club_goals AND round = 'Final'
+          GROUP BY home_club_id
+        ), AwayTrophies AS (
+          SELECT away_club_id, COUNT(*) AS num_trophies
+          FROM Games
+          WHERE home_club_goals < away_club_goals AND round = 'Final'
+          GROUP BY away_club_id
+        )
+        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
+        FROM Clubs C LEFT OUTER JOIN (HomeTrophies JOIN AwayTrophies ON HomeTrophies.home_club_id = AwayTrophies.away_club_id) ON C.club_id = HomeTrophies.home_club_id
+        ORDER BY knockout_trophies DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      });
+    }
+  } else if (orderBy === 'average_age') {
+    if (!page) {
+      connection.query(`
+        SELECT club_id, club_name, average_age
+        FROM Clubs
+        ORDER by average_age DESC
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      });
+    } else {
+      connection.query(`
+        SELECT club_id, club_name, average_age
+        FROM Clubs
+        ORDER by average_age DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
+        if (err || data.length === 0) {
+          console.log(err);
+          res.json([]);
+        } else {
+          res.json(data);
+        }
+      });
+    }
   } else {
     res.status(400).send(`'${req.params.orderBy}' is not a valid attribute by which to sort clubs.`);
+  }
+}
+
+// GET /top_players_in_clubs
+const top_players_in_clubs = async function (req, res) {
+  const page = req.query.page;
+  const pageSize = req.query.page_size ? req.query.page_size : 10;
+
+  if (!page) {
+    connection.query(`
+      WITH AverageGamesPerPlayerAndClub AS (
+        SELECT player_id, player_club_id, AVG(goals) AS avg_player_goals
+        FROM Appearances
+        GROUP BY player_id, player_club_id
+        ORDER BY avg_player_goals DESC
+      ), MAXES AS (
+        SELECT *
+        FROM AverageGamesPerPlayerAndClub
+        GROUP BY player_club_id
+      )
+      SELECT C.club_id, C.club_name, P.player_id, P.player_name, avg_player_goals AS max_avg_player_goals
+      FROM MAXES NATURAL JOIN Players P RIGHT OUTER JOIN Clubs C on MAXES.player_club_id = C.club_id
+      ORDER BY max_avg_player_goals DESC
+    `, (err, data) => {
+      if (err || data.length === 0) {
+        console.log(err);
+        res.json([]);
+      } else {
+        res.json(data);
+      }
+    });
+  } else {
+    connection.query(`
+      WITH AverageGamesPerPlayerAndClub AS (
+        SELECT player_id, player_club_id, AVG(goals) AS avg_player_goals
+        FROM Appearances
+        GROUP BY player_id, player_club_id
+        ORDER BY avg_player_goals DESC
+      ), MAXES AS (
+        SELECT *
+        FROM AverageGamesPerPlayerAndClub
+        GROUP BY player_club_id
+      )
+      SELECT C.club_id, C.club_name, P.player_id, P.player_name, avg_player_goals AS max_avg_player_goals
+      FROM MAXES NATURAL JOIN Players P RIGHT OUTER JOIN Clubs C on MAXES.player_club_id = C.club_id
+      ORDER BY max_avg_player_goals DESC
+      LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+    `, (err, data) => {
+      if (err || data.length === 0) {
+        console.log(err);
+        res.json([]);
+      } else {
+        res.json(data);
+      }
+    });
   }
 }
 
@@ -518,5 +653,6 @@ module.exports = {
   club_name,
   top_clubs,
   players_fifa,
-  top_fifa
+  top_fifa,
+  top_players_in_clubs
 }

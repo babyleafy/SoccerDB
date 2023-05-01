@@ -1,5 +1,33 @@
 const mysql = require('mysql')
 const config = require('./config.json')
+const NodeCache = require("node-cache");
+
+connection.query(`
+  WITH HomeGoals AS (
+    SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+    FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
+    GROUP BY player_club_id, Games.game_id
+  ),
+  AwayGoals AS (
+    SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+    FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
+    GROUP BY player_club_id, Games.game_id
+  ),
+  ClubNames AS (
+    SELECT club_id, club_name
+    FROM Clubs
+  )
+  SELECT HomeGoals.club_id, club_name, AVG(HomeGoals.club_goals) AS avg_home_goals, AVG(AwayGoals.club_goals) AS avg_away_goals
+  FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
+  GROUP BY club_id, club_name
+  ORDER BY avg_home_goals DESC, avg_away_goals DESC
+`, (err, data) => {
+  if (err || data.length === 0) {
+    console.log(err);
+  } else {
+    NodeCache.set("top_clubs_goals", data);
+  }
+});
 
 // Creates MySQL connection using database credential provided in config.json
 const connection = mysql.createConnection({
@@ -297,33 +325,66 @@ const top_clubs = async function (req, res) {
   const orderBy = req.query.orderBy ? req.query.orderBy : "goals";
   if (orderBy === "goals") {
     if (!page) {
-      connection.query(`
-        WITH HomeGoals AS (
-          SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-          FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
-          GROUP BY player_club_id, Games.game_id
-        ),
-        AwayGoals AS (
-          SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-          FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
-          GROUP BY player_club_id, Games.game_id
-        ),
-        ClubNames AS (
-          SELECT club_id, club_name
-          FROM Clubs
-        )
-        SELECT HomeGoals.club_id, club_name, AVG(HomeGoals.club_goals) AS avg_home_goals, AVG(AwayGoals.club_goals) AS avg_away_goals
-        FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
-        GROUP BY club_id, club_name
-        ORDER BY avg_home_goals DESC, avg_away_goals DESC
-      `, (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          res.json([]);
-        } else {
-          res.json(data);
-        }
-      });
+      // connection.query(`
+      //   WITH HomeGoals AS (
+      //     SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+      //     FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
+      //     GROUP BY player_club_id, Games.game_id
+      //   ),
+      //   AwayGoals AS (
+      //     SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+      //     FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
+      //     GROUP BY player_club_id, Games.game_id
+      //   ),
+      //   ClubNames AS (
+      //     SELECT club_id, club_name
+      //     FROM Clubs
+      //   )
+      //   SELECT HomeGoals.club_id, club_name, AVG(HomeGoals.club_goals) AS avg_home_goals, AVG(AwayGoals.club_goals) AS avg_away_goals
+      //   FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
+      //   GROUP BY club_id, club_name
+      //   ORDER BY avg_home_goals DESC, avg_away_goals DESC
+      // `, (err, data) => {
+      //   if (err || data.length === 0) {
+      //     console.log(err);
+      //     res.json([]);
+      //   } else {
+      //     res.json(data);
+      //   }
+      // });
+      data = NodeCache.get("top_clubs_goals");
+      if (value == undefined) {
+        connection.query(`
+          WITH HomeGoals AS (
+            SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+            FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
+            GROUP BY player_club_id, Games.game_id
+          ),
+          AwayGoals AS (
+            SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+            FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
+            GROUP BY player_club_id, Games.game_id
+          ),
+          ClubNames AS (
+            SELECT club_id, club_name
+            FROM Clubs
+          )
+          SELECT HomeGoals.club_id, club_name, AVG(HomeGoals.club_goals) AS avg_home_goals, AVG(AwayGoals.club_goals) AS avg_away_goals
+          FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
+          GROUP BY club_id, club_name
+          ORDER BY avg_home_goals DESC, avg_away_goals DESC
+        `, (err, data) => {
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json([]);
+          } else {
+            NodeCache.set("top_clubs_goals", data);
+            res.json(data);
+          }
+        });
+      } else {
+        res.json(data);
+      }
     } else {
       connection.query(`
         WITH HomeGoals AS (

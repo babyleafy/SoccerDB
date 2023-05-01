@@ -72,10 +72,7 @@ export default {
         },
         async fetchGoals(setData) {
             const fetchData = async () => { 
-                console.log('asdf')
                 for (const [id] of this.selected) {
-                    console.log(id)
-                    console.log(`${config.backend_url}/player_goals/${id}`)
                     if (!this.goalMap.has(id)) {
                         await fetch(`${config.backend_url}/player_goals/${id}`).then(
                             res => {
@@ -85,13 +82,11 @@ export default {
                             }
                         ).then(
                             res => {
-                                console.log(res)
                                 const chartPoint = {
                                     label: res[0].player_name,
                                     data: []
                                 }
                                 res.forEach((season) => {
-                                    console.log(season.season)
                                     chartPoint.data.push(
                                         {
                                             x: `${season.season}-01-01 23:39:30`,
@@ -99,7 +94,7 @@ export default {
                                         }
                                     )
                                 })
-                                console.log(chartPoint)
+                                
                                 this.goalMap.set(id, chartPoint)
                             }
                         )
@@ -108,12 +103,8 @@ export default {
                 this.goalData.datasets.length = 0
                 
                 for (const [key] of this.goalMap) {
-                    console.log(key)
-                    console.log(this.goalMap.get(key))
                     this.goalData.datasets.push(this.goalMap.get(key))
                 }
-                console.log('hello')
-                console.log(this.goalData)
                 
                 setData(this.goalData)
             }

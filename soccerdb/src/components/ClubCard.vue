@@ -45,9 +45,6 @@ export default {
             ).then(
                 data => this.data = data
             )
-            .then( () =>
-                console.log(this.data)
-            )
         }
     },
     mounted() {

@@ -85,8 +85,6 @@ export default {
     },
     mounted() {
         this.$emit("fetchData", (d) => this.setData(d))
-        console.log('MOUNTED')
-        console.log(this.data)
     }
 }
 </script>

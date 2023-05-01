@@ -34,11 +34,6 @@
           maintainAspectRatio: true,
         }
       }
-    },
-    mounted() {
-      console.log(this.labels)
-      console.log(this.data)
-      console.log('mounted!')
     }
   }
   </script>

@@ -538,6 +538,61 @@ const top_clubs = async function (req, res) {
   }
 }
 
+// GET /top_players_in_clubs
+const top_players_in_clubs = async function (req, res) {
+  const page = req.query.page;
+  const pageSize = req.query.page_size ? req.query.page_size : 10;
+
+  if (!page) {
+    connection.query(`
+      WITH AverageGamesPerPlayerAndClub AS (
+        SELECT player_id, player_club_id, AVG(goals) AS avg_player_goals
+        FROM Appearances
+        GROUP BY player_id, player_club_id
+        ORDER BY avg_player_goals DESC
+      ), MAXES AS (
+        SELECT *
+        FROM AverageGamesPerPlayerAndClub
+        GROUP BY player_club_id
+      )
+      SELECT C.club_id, C.club_name, P.player_id, P.player_name, avg_player_goals AS max_avg_player_goals
+      FROM MAXES NATURAL JOIN Players P RIGHT OUTER JOIN Clubs C on MAXES.player_club_id = C.club_id
+      ORDER BY max_avg_player_goals DESC
+    `, (err, data) => {
+      if (err || data.length === 0) {
+        console.log(err);
+        res.json([]);
+      } else {
+        res.json(data);
+      }
+    });
+  } else {
+    connection.query(`
+      WITH AverageGamesPerPlayerAndClub AS (
+        SELECT player_id, player_club_id, AVG(goals) AS avg_player_goals
+        FROM Appearances
+        GROUP BY player_id, player_club_id
+        ORDER BY avg_player_goals DESC
+      ), MAXES AS (
+        SELECT *
+        FROM AverageGamesPerPlayerAndClub
+        GROUP BY player_club_id
+      )
+      SELECT C.club_id, C.club_name, P.player_id, P.player_name, avg_player_goals AS max_avg_player_goals
+      FROM MAXES NATURAL JOIN Players P RIGHT OUTER JOIN Clubs C on MAXES.player_club_id = C.club_id
+      ORDER BY max_avg_player_goals DESC
+      LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+    `, (err, data) => {
+      if (err || data.length === 0) {
+        console.log(err);
+        res.json([]);
+      } else {
+        res.json(data);
+      }
+    });
+  }
+}
+
 module.exports = {
   players,
   player_id,
@@ -547,5 +602,6 @@ module.exports = {
   clubs,
   club_id,
   club_name,
-  top_clubs
+  top_clubs,
+  top_players_in_clubs
 }

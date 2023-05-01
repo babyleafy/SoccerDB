@@ -11,6 +11,7 @@ const connection = mysql.createConnection({
   database: config.rds_db
 });
 connection.connect((err) => err && console.log(err));
+const dbLib = require('./fifaDB');
 
 // Initialize the cache
 const cache = new NodeCache();
@@ -487,6 +488,25 @@ const top_clubs = async function (req, res) {
   }
 }
 
+const players_fifa = async (req, res) => {
+  try {
+    const response = await dbLib.getStats(req.params.name);
+    res.status(200).json({ data: response });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+}
+
+const top_fifa = async (req, res) => {
+  try {
+    const response = await dbLib.getTopStats();
+    res.status(200).json({ data: response });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+}
+  
+
 module.exports = {
   players,
   player_id,
@@ -496,5 +516,7 @@ module.exports = {
   clubs,
   club_id,
   club_name,
-  top_clubs
+  top_clubs,
+  players_fifa,
+  top_fifa
 }

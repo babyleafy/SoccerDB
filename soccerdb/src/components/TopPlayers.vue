@@ -27,7 +27,10 @@
             Current Value <i class="emoji">💰</i>
           </button>
           <button class="rounded text-black" :class="{'bg-gray-500 text-white': orderBy === 'highest_value'}" @click="sendRequest('highest_value')">
-            Highest Value <i class="emoji">📈</i>
+            Highest Value <i class="emoji">💸</i>
+          </button>
+          <button class="rounded text-black" :class="{'bg-green-500 text-white': orderBy === 'overall'}" @click="sendMongoRequest('overall')">
+            FIFA Stat (Special)<i class="emoji">📊</i>
           </button>
       </div>
       <div class="table-container">
@@ -42,11 +45,11 @@
             </tr>
             </thead>
             <tbody>
-              <tr v-for="(player, index) in currentPlayers" :key="player.player_id"
+              <tr v-for="(player, index) in currentPlayers" :key="orderBy === 'overall' ? player._id : player.player_id"
                 :class="getClass((currentPage - 1) * pageSize + index + 1) + (selectedPlayerId === player.player_id ? ' selected' : '')"
-                @click="selectedPlayerId = player.player_id">
+                @click="selectedPlayerId = orderBy === 'overall' ? null : player.player_id">
                 <td>{{ (currentPage - 1) * pageSize + index + 1 }}</td>
-                <td>{{ player.player_name }}</td>
+                <td>{{ orderBy === 'overall' ? player.long_name : player.player_name }}</td>
                 <td>{{ player.club }}</td>
                 <td>{{ player.position }}</td>
                 <td>
@@ -116,15 +119,29 @@
       },
     },
     methods: {
+      async sendMongoRequest(orderBy) {
+        const url = 'http://localhost:8081/top_fifa';
+        try {
+          const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+          });
+          const data = await response.json();
+          this.players = data.data;
+          this.orderBy = orderBy;
+        } catch (error) {
+          return { error };
+        }
+      },
       sendRequest(orderBy) {
         const url = `http://localhost:8081/top_players/${orderBy}`;
         fetch(url)
           .then(response => response.json())
           .then(data => {
             this.players = data;
+            this.orderBy = orderBy;
           })
           .catch(error => console.error(error));
-        this.orderBy = orderBy;
       }, 
       getClass(index) {
         if (index === 1) {

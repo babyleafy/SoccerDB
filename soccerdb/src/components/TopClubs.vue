@@ -114,9 +114,9 @@
           .then(response => response.json())
           .then(data => {
             this.clubs = data;
+            this.orderBy = orderBy;
           })
           .catch(error => console.error(error));
-        this.orderBy = orderBy;
       }, 
       getClass(index) {
         if (index === 1) {

@@ -7,7 +7,7 @@
           dense
           outlined
           type="search"
-          label="Search clubs"
+          label="Search players"
           @change="fetchData"
           append-icon="mdi-magnify"
           single-line

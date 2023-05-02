@@ -36,7 +36,14 @@
               word.slice(1)).join('') }}</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="!isLoaded && orderBy != ''">
+          <tr>
+            <td colspan="5" style="text-align:center">
+              <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
           <tr v-for="(club, index) in currentclubs" :key="club.club_id"
             :class="getClass((currentPage - 1) * pageSize + index + 1) + (club.club_id === selectedClubId ? ' selected' : '')"
             @click="selectedClubId = club.club_id">
@@ -80,6 +87,7 @@ export default {
       currentPage: 1,
       pageSize: 10,
       selectedClubId: null,
+      isLoaded: false,
     };
   },
   computed: {
@@ -113,10 +121,12 @@ export default {
     sendRequest(orderBy) {
       const url = `http://localhost:8081/top_clubs/${orderBy}`;
       this.orderBy = orderBy;
+      this.isLoaded = false;
       fetch(url)
         .then(response => response.json())
         .then(data => {
           this.clubs = data;
+          this.isLoaded = true;
         })
         .catch(error => console.error(error));
     },

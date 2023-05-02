@@ -50,10 +50,9 @@ export default {
           maintainAspectRatio: true,
           scale: {
             ticks: {
-                beginAtZero: true,
-                min: 30,
-                max: 99,
-                stepSize: 10,
+              stepSize: 10,
+              values: [20, 30, 40, 50, 60, 70, 80, 90, 99],
+              
             },
           },
         },

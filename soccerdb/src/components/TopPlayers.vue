@@ -44,7 +44,14 @@
                 <th>{{ orderBy.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody v-if="!isLoaded && orderBy != ''">
+              <tr>
+                <td colspan="5" style="text-align:center">
+                  <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else>
               <tr v-for="(player, index) in currentPlayers" :key="orderBy === 'overall' ? player._id : player.player_id"
                 :class="getClass((currentPage - 1) * pageSize + index + 1) + (selectedPlayerId === player.player_id ? ' selected' : '')"
                 @click="orderBy === 'overall' ? selectPlayer(null, null) : selectPlayer(player.player_id, player.player_name)">
@@ -90,6 +97,7 @@
         pageSize: 10,
         selectedPlayerId: null,
         selectedPlayerName: null,
+        isLoaded: false,
       };
     },
     computed: {
@@ -127,6 +135,7 @@
       async sendMongoRequest(orderBy) {
         const url = 'http://localhost:8081/top_fifa';
         this.orderBy = orderBy;
+        this.isLoaded = false;
         try {
           const response = await fetch(url, {
             method: 'GET',
@@ -134,6 +143,7 @@
           });
           const data = await response.json();
           this.players = data.data;
+          this.isLoaded = true;
         } catch (error) {
           return { error };
         }
@@ -141,10 +151,12 @@
       sendRequest(orderBy) {
         const url = `http://localhost:8081/top_players/${orderBy}`;
         this.orderBy = orderBy;
+        this.isLoaded = false;
         fetch(url)
           .then(response => response.json())
           .then(data => {
             this.players = data;
+            this.isLoaded = true;
           })
           .catch(error => console.error(error));
       }, 

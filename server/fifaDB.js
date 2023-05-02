@@ -47,10 +47,20 @@ const closeMongoDBConnection = async () => {
 const getStats = async (name) => {
   const db = await getDB();
   const results = await db.collection('FifaStats').findOne({
-    long_name: {
-      $regex: name.split(' ').map(w => `\\b${w}\\b`).join('.*'),
-      $options: 'i'
-    }
+    $or: [
+      {
+        long_name: {
+          $regex: name.split(' ').map(w => `\\b${w}\\b`).join('.*'),
+          $options: 'i'
+        }
+      },
+      {
+        short_name: {
+          $regex: name.split(' ').map(w => `\\b${w}\\b`).join('.*'),
+          $options: 'i'
+        }
+      }
+    ]
   });
   return results;
 };

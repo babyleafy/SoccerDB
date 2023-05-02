@@ -18,7 +18,7 @@
           <p>Height (cm): {{data.height_in_cm}}</p>
           <p>Market value (€): {{ data.market_value_in_eur ? Number(data.market_value_in_eur).toLocaleString(undefined) : "unknown" }}</p>
           <p>Max Market value (€): {{ Number(data.highest_market_value_in_eur).toLocaleString(undefined) }}</p>
-          <p>FIFA Rating: {{ stats ? stats.overall : '< 70' }}</p>
+          <p>FIFA Rating: {{ stats ? stats.overall : 'Not Found' }}</p>
           <div v-if="stats !== null && stats.shooting !== null">
             <radar-chart :key="stats._id" :pace="stats.pace" :shooting="stats.shooting" :passing="stats.passing" :dribbling="stats.dribbling" :defending="stats.defending" :physic="stats.physic" />
           </div>

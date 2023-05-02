@@ -31,7 +31,17 @@ const options = {
                 time: {
                     unit: 'year',
                     tooltipFormat: 'YYYY'
+                },
+                title: {
+                  display: true,
+                  text: 'Year'
                 }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Goals Scored'
+              }
             }
   }
 }

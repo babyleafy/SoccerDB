@@ -640,7 +640,7 @@ const top_fifa = async (req, res) => {
     res.status(500).json({ error: err });
   }
 }
-  
+
 
 module.exports = {
   players,

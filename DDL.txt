@@ -33,8 +33,6 @@ CREATE TABLE Games (
     game_date VARCHAR(10),
     home_club_id INT NOT NULL,
     away_club_id INT NOT NULL,
-    home_club_goals INT NOT NULL,
-    away_club_goals INT NOT NULL,
     stadium VARCHAR(50),
     attendance INT,
     FOREIGN KEY (home_club_id) REFERENCES Clubs (club_id),

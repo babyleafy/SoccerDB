@@ -65,9 +65,6 @@ export default {
         return { error };
       }
     },
-    /**
-     * TODO: REPLACE WITH ACTUAL FETCH / API ROUTING
-     */
     fetchData(id) {
       const config = require('../../config.json')
         fetch(
@@ -99,17 +96,18 @@ export default {
             const date = new Date(this.data.date_of_birth)
             this.datestring = date.toDateString()
           })
-    }
+    },
+    
   },
   mounted() {
     this.fetchData(this.id);
     this.sendMongoRequest(this.name);
   },
   watch: {
-    id(newId, oldId) {
+    id(newId) {
       this.fetchData(newId)
     },
-    name(newName, oldName) {
+    name(newName) {
       this.sendMongoRequest(newName);
     }
   }

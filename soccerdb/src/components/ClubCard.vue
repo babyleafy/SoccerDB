@@ -23,7 +23,6 @@
 export default {
     props: {
         id: Number,
-        topPlayer: String
     },
     data() {
         return {
@@ -31,6 +30,8 @@ export default {
             post: null,
             error: null,
             data: null,
+            topPlayer: "",
+            topPlayersData: [],
         }
     },
     methods: {
@@ -47,14 +48,36 @@ export default {
             ).then(
                 data => this.data = data
             )
+        },
+        async setTopPlayersData() {
+            const url = `http://localhost:8081/top_players_in_clubs`;
+            await fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.topPlayersData = data;
+            })
+            .catch(error => console.error(error));
+        },
+        setTopPlayer() {
+            for (let i = 0; i < this.topPlayersData.length; i++) {
+                if (this.topPlayersData[i].club_id === this.id) {
+                    this.topPlayer = this.topPlayersData[i].player_name
+                    console.log(this.topPlayer)
+                    return
+                }
+            }
+            this.topPlayer = ""
         }
     },
     mounted() {
         this.fetchData(this.id)
+        this.setTopPlayersData().then(() => this.setTopPlayer())
+        
     },
     watch: {
         id(newId, oldId) {
-        this.fetchData(newId)
+            this.fetchData(newId)
+            this.setTopPlayer()
         }
     }
 }

@@ -1,4 +1,5 @@
 <template>
+    
     <Bar
       id="my-chart-id"
       :options="chartOptions"
@@ -26,12 +27,30 @@
           datasets: [ 
             { 
               label: "Selected Clubs",
-              data: this.data } 
+              data: this.data,
+              backgroundColor: [ 'rgba(54, 162, 235, 0.2)'],
+              borderColor: ['rgb(75, 192, 192)',],
+            },
+
           ]
         },
         chartOptions: {
           responsive: true,
           maintainAspectRatio: true,
+          scales: {
+            x: {
+                title: {
+                  display: true,
+                  text: 'Clubs'
+                }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Trophies Won'
+              }
+            }
+  }
         }
       }
     }

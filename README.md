@@ -2,7 +2,7 @@
 
 We wanted to create a website that integrates information about soccer players in real life from the Transfermarkt news website and the popular soccer game, FIFA.
 
-The app runs very similarly to how HW 2 was ran. To recap,
+The app runs very similarly to how HW 2 was ran. To recap, we can run the app through these following steps:
 
 1. Locate the root folder
 2. cd into the server, and install npm via "npm install", which will ensure that all packages (including Vue, which is necessary for this assignment) are installed.

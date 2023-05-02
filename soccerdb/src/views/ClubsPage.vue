@@ -10,9 +10,7 @@
                 </v-sheet>
                 </v-col>
                 <v-col cols="3">
-                    <v-sheet class="pa-2 ma-2">
-                        <ClubCard :id=id :top-player="topScorer"/>
-                    </v-sheet>
+                    <ClubCard :id=id :top-player="topScorer"/>
                 </v-col>
             </v-row>
             <v-col>

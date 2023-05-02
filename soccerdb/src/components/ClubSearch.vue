@@ -115,3 +115,54 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.player-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.search-input-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.custom-table {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.club-name,
+.dob,
+.country,
+.position {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: end;
+}
+
+.club-name {
+  color: #5f5f5f;
+}
+
+.dob {
+  color: #a0a0a0;
+}
+
+.country {
+  color: #808080;
+}
+
+.position {
+  color: #404040;
+}
+</style>

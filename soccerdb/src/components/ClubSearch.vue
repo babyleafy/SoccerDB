@@ -1,16 +1,17 @@
 <template>
-    <v-card class="mx-auto" color="grey-lighten-3">
+     <v-card class="mx-auto" color="grey-lighten-3">
             <v-card-text>
-                <v-text-field :loading="loading" 
+                <v-text-field :loading="loading"
                     v-model="name"
-                    density="compact" variant="solo"
+                    dense
+                    outlined
                     type="search"
                     label="Search clubs"
                     @change="fetchData"
-                    append-inner-icon="mdi-magnify" 
-                    single-line 
+                    append-icon="mdi-magnify"
+                    single-line
                     hide-details
-                    @click:append-inner="fetchData">
+                    @click:append="fetchData">
                 </v-text-field>
             </v-card-text>
         </v-card>

@@ -1,14 +1,8 @@
 <template>
     <h1>Selected Clubs</h1>
     <div id="selection" v-if="selected">
-        <v-data-table-virtual v-if="selected"
-                class=".custom-table"   
-                :headers="headers"
-                :items="selected.values()"
-
-                item-value="club_name"
-                @click:row="handleRowClick"
-                hover>
+        <v-data-table-virtual v-if="selected" class=".custom-table" :headers="headers" :items="selected.values()"
+            item-value="club_name" @click:row="handleRowClick" hover>
         </v-data-table-virtual>
     </div>
 </template>
@@ -38,7 +32,7 @@ export default {
         }
     },
     methods: {
-        handleRowClick(event, {item}) {
+        handleRowClick(event, { item }) {
             if (window.getSelection().toString().length === 0) {
                 this.$emit("removeSelectedClub", item.columns)
             }

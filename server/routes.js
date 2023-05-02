@@ -486,15 +486,24 @@ const top_clubs = async function (req, res) {
   } else if (orderBy === "knockout_trophies") {
     if (!page) {
       connection.query(`
-        WITH HomeTrophies AS (
+        WITH GoalsPerClubPerGame AS (
+          SELECT player_club_id, game_id, SUM(goals) AS goals
+          FROM Appearances
+          GROUP BY player_club_id, game_id
+        ), HomeAndAwayClubGoalsPerGame AS (
+          SELECT G.game_id, home_club_id, away_club_id, T1.goals AS home_club_goals, T2.goals AS away_club_goals, round
+          FROM Games G JOIN GoalsPerClubPerGame T1 ON (G.game_id = T1.game_id AND G.home_club_id = T1.player_club_id)
+            JOIN GoalsPerClubPerGame T2 ON (G.game_id = T2.game_id AND G.away_club_id = T2.player_club_id)
+          WHERE round = 'Final'
+        ), HomeTrophies AS (
           SELECT home_club_id, COUNT(*) AS num_trophies
-          FROM Games
-          WHERE home_club_goals > away_club_goals AND round = 'Final'
+          FROM HomeAndAwayClubGoalsPerGame
+          WHERE home_club_goals > away_club_goals
           GROUP BY home_club_id
         ), AwayTrophies AS (
           SELECT away_club_id, COUNT(*) AS num_trophies
-          FROM Games
-          WHERE home_club_goals < away_club_goals AND round = 'Final'
+          FROM HomeAndAwayClubGoalsPerGame
+          WHERE home_club_goals < away_club_goals
           GROUP BY away_club_id
         )
         SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
@@ -510,15 +519,24 @@ const top_clubs = async function (req, res) {
       });
     } else {
       connection.query(`
-        WITH HomeTrophies AS (
+        WITH GoalsPerClubPerGame AS (
+          SELECT player_club_id, game_id, SUM(goals) AS goals
+          FROM Appearances
+          GROUP BY player_club_id, game_id
+        ), HomeAndAwayClubGoalsPerGame AS (
+          SELECT G.game_id, home_club_id, away_club_id, T1.goals AS home_club_goals, T2.goals AS away_club_goals, round
+          FROM Games G JOIN GoalsPerClubPerGame T1 ON (G.game_id = T1.game_id AND G.home_club_id = T1.player_club_id)
+            JOIN GoalsPerClubPerGame T2 ON (G.game_id = T2.game_id AND G.away_club_id = T2.player_club_id)
+          WHERE round = 'Final'
+        ), HomeTrophies AS (
           SELECT home_club_id, COUNT(*) AS num_trophies
-          FROM Games
-          WHERE home_club_goals > away_club_goals AND round = 'Final'
+          FROM HomeAndAwayClubGoalsPerGame
+          WHERE home_club_goals > away_club_goals
           GROUP BY home_club_id
         ), AwayTrophies AS (
           SELECT away_club_id, COUNT(*) AS num_trophies
-          FROM Games
-          WHERE home_club_goals < away_club_goals AND round = 'Final'
+          FROM HomeAndAwayClubGoalsPerGame
+          WHERE home_club_goals < away_club_goals
           GROUP BY away_club_id
         )
         SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies

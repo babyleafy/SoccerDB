@@ -1,16 +1,17 @@
 <template>
-    <v-card class="mx-auto" color="grey-lighten-3">
+     <v-card class="mx-auto" color="grey-lighten-3">
             <v-card-text>
-                <v-text-field :loading="loading" 
+                <v-text-field :loading="loading"
                     v-model="name"
-                    density="compact" variant="solo"
+                    dense
+                    outlined
                     type="search"
                     label="Search clubs"
                     @change="fetchData"
-                    append-inner-icon="mdi-magnify" 
-                    single-line 
+                    append-icon="mdi-magnify"
+                    single-line
                     hide-details
-                    @click:append-inner="fetchData">
+                    @click:append="fetchData">
                 </v-text-field>
             </v-card-text>
         </v-card>
@@ -115,3 +116,54 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.player-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.search-input-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.custom-table {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.club-name,
+.dob,
+.country,
+.position {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: end;
+}
+
+.club-name {
+  color: #5f5f5f;
+}
+
+.dob {
+  color: #a0a0a0;
+}
+
+.country {
+  color: #808080;
+}
+
+.position {
+  color: #404040;
+}
+</style>

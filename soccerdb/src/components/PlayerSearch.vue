@@ -1,31 +1,36 @@
 <template>
-        <v-card class="mx-auto" color="grey-lighten-3">
-            <v-card-text>
-                <v-text-field :loading="loading" 
-                    v-model="name"
-                    density="compact" variant="solo"
-                    type="search"
-                    label="Search players"
-                    @change="fetchData"
-                    append-inner-icon="mdi-magnify" 
-                    single-line 
-                    hide-details
-                    @click:append-inner="fetchData">
-                </v-text-field>
-            </v-card-text>
-
-            
-        </v-card>
-
-        <v-data-table v-show="data"
-                class=".custom-table"
-                v-model:items-per-page="itemsPerPage"
-                :headers="headers"
-                :items="data"
-
-                item-value="player_name"
-                @click:row="handleRowClick"
-                hover>
+    <v-card class="mx-auto" color="grey-lighten-3">
+      <v-card-text>
+        <v-text-field
+          :loading="loading"
+          v-model="name"
+          dense
+          outlined
+          type="search"
+          label="Search clubs"
+          @change="fetchData"
+          append-icon="mdi-magnify"
+          single-line
+          hide-details
+          @click:append="fetchData"
+        ></v-text-field>
+      </v-card-text>
+    </v-card>
+  <v-data-table
+    class="custom-table"
+    v-model:items-per-page="itemsPerPage"
+    :headers="headers"
+    :items="data"
+    item-value="club_name"
+    @click:row="handleRowClick"
+    :dense="true"
+    :footer-props="{ showFirstLastPage: true }"
+    :items-per-page-options="[10, 20, 50]"
+    :loading="loading"
+    :loading-text="'Loading...'"
+    :no-data-text="'No results found.'"
+    :no-results-text="'No matching records found'"
+    :search="name">
         
         </v-data-table>
 </template>

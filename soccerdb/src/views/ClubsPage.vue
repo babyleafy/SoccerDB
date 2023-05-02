@@ -21,6 +21,7 @@
                         @remove-selected-club="removeSelectedClub($event)"/>
             </v-col>
             <v-row>
+                <h2> Trophies Won </h2>
                 <BarChart :key="chartKey"
                         :labels="Array.from(selectedTrophyData.keys())"
                         :data="Array.from(selectedTrophyData.values())"/>
@@ -52,22 +53,11 @@ export default {
             chartLabels: [],
             chartData: [],
             chartKey: 0,
-            topPlayersData: [],
-            topScorer: ""
         }
     },
     methods: {
         changeHoveredClub(id) {
             this.id = id
-            console.log(this.topPlayersData)
-            for (let i = 0; i < this.topPlayersData.length; i++) {
-                if (this.topPlayersData[i].club_id === this.id) {
-                    this.topScorer = this.topPlayersData[i].player_name
-                    console.log(this.topScorer)
-                    return
-                }
-            }
-            this.topScorer = ""
         },
         addSelectedClub(data) {
             
@@ -94,20 +84,10 @@ export default {
             })
             .catch(error => console.error(error));
         },
-        setTopPlayersData() {
-            const url = `http://localhost:8081/top_players_in_clubs`;
-            fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                this.topPlayersData = data;
-            })
-            .catch(error => console.error(error));
-        }
+        
     },
     mounted() {
-        
         this.setTrophyData()
-        this.setTopPlayersData()
     }
 }
 </script>

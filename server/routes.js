@@ -380,38 +380,6 @@ const top_clubs = async function (req, res) {
       data = cache.get("total_goals");
       if (data == undefined) {
         connection.query(`
-            WITH HomeGoals AS (
-              SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-              FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
-              GROUP BY player_club_id
-            ),
-            AwayGoals AS (
-              SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-              FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
-              GROUP BY player_club_id
-            ),
-            ClubNames AS (
-              SELECT club_id, club_name
-              FROM Clubs
-            )
-            SELECT HomeGoals.club_id, club_name, ((HomeGoals.club_goals) + (AwayGoals.club_goals)) AS total_goals
-            FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
-            GROUP BY club_id, club_name
-            ORDER BY total_goals DESC
-          `, (err, data) => {
-          if (err || data.length === 0) {
-            console.log(err);
-            res.json([]);
-          } else {
-            cache.set("total_goals", data);
-            res.json(data);
-          }
-        });
-      } else {
-        res.json(data);
-      }
-    } else {
-      connection.query(`
           WITH HomeGoals AS (
             SELECT player_club_id AS club_id, SUM(goals) AS club_goals
             FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
@@ -430,8 +398,40 @@ const top_clubs = async function (req, res) {
           FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
           GROUP BY club_id, club_name
           ORDER BY total_goals DESC
-          LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
         `, (err, data) => {
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json([]);
+          } else {
+            cache.set("total_goals", data);
+            res.json(data);
+          }
+        });
+      } else {
+        res.json(data);
+      }
+    } else {
+      connection.query(`
+        WITH HomeGoals AS (
+          SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+          FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
+          GROUP BY player_club_id
+        ),
+        AwayGoals AS (
+          SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+          FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
+          GROUP BY player_club_id
+        ),
+        ClubNames AS (
+          SELECT club_id, club_name
+          FROM Clubs
+        )
+        SELECT HomeGoals.club_id, club_name, ((HomeGoals.club_goals) + (AwayGoals.club_goals)) AS total_goals
+        FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
+        GROUP BY club_id, club_name
+        ORDER BY total_goals DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
           res.json([]);
@@ -489,38 +489,44 @@ const top_clubs = async function (req, res) {
     }
   } else if (orderBy === "knockout_trophies") {
     if (!page) {
-      connection.query(`
-        WITH GoalsPerClubPerGame AS (
-          SELECT player_club_id, game_id, SUM(goals) AS goals
-          FROM Appearances
-          GROUP BY player_club_id, game_id
-        ), HomeAndAwayClubGoalsPerGame AS (
-          SELECT G.game_id, home_club_id, away_club_id, T1.goals AS home_club_goals, T2.goals AS away_club_goals, round
-          FROM Games G JOIN GoalsPerClubPerGame T1 ON (G.game_id = T1.game_id AND G.home_club_id = T1.player_club_id)
-            JOIN GoalsPerClubPerGame T2 ON (G.game_id = T2.game_id AND G.away_club_id = T2.player_club_id)
-          WHERE round = 'Final'
-        ), HomeTrophies AS (
-          SELECT home_club_id, COUNT(*) AS num_trophies
-          FROM HomeAndAwayClubGoalsPerGame
-          WHERE home_club_goals > away_club_goals
-          GROUP BY home_club_id
-        ), AwayTrophies AS (
-          SELECT away_club_id, COUNT(*) AS num_trophies
-          FROM HomeAndAwayClubGoalsPerGame
-          WHERE home_club_goals < away_club_goals
-          GROUP BY away_club_id
-        )
-        SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
-        FROM Clubs C LEFT OUTER JOIN (HomeTrophies JOIN AwayTrophies ON HomeTrophies.home_club_id = AwayTrophies.away_club_id) ON C.club_id = HomeTrophies.home_club_id
-        ORDER BY knockout_trophies DESC
-      `, (err, data) => {
-        if (err || data.length === 0) {
-          console.log(err);
-          res.json([]);
-        } else {
-          res.json(data);
-        }
-      });
+      data = cache.get("knockout_trophies");
+      if (data == undefined) {
+        connection.query(`
+          WITH GoalsPerClubPerGame AS (
+            SELECT player_club_id, game_id, SUM(goals) AS goals
+            FROM Appearances
+            GROUP BY player_club_id, game_id
+          ), HomeAndAwayClubGoalsPerGame AS (
+            SELECT G.game_id, home_club_id, away_club_id, T1.goals AS home_club_goals, T2.goals AS away_club_goals, round
+            FROM Games G JOIN GoalsPerClubPerGame T1 ON (G.game_id = T1.game_id AND G.home_club_id = T1.player_club_id)
+              JOIN GoalsPerClubPerGame T2 ON (G.game_id = T2.game_id AND G.away_club_id = T2.player_club_id)
+            WHERE round = 'Final'
+          ), HomeTrophies AS (
+            SELECT home_club_id, COUNT(*) AS num_trophies
+            FROM HomeAndAwayClubGoalsPerGame
+            WHERE home_club_goals > away_club_goals
+            GROUP BY home_club_id
+          ), AwayTrophies AS (
+            SELECT away_club_id, COUNT(*) AS num_trophies
+            FROM HomeAndAwayClubGoalsPerGame
+            WHERE home_club_goals < away_club_goals
+            GROUP BY away_club_id
+          )
+          SELECT C.club_id, C.club_name, (IFNULL(HomeTrophies.num_trophies, 0) + IFNULL(AwayTrophies.num_trophies, 0)) AS knockout_trophies
+          FROM Clubs C LEFT OUTER JOIN (HomeTrophies JOIN AwayTrophies ON HomeTrophies.home_club_id = AwayTrophies.away_club_id) ON C.club_id = HomeTrophies.home_club_id
+          ORDER BY knockout_trophies DESC
+        `, (err, data) => {
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json([]);
+          } else {
+            cache.set("knockout_trophies", data);
+            res.json(data);
+          }
+        });
+      } else {
+        res.json(data);
+      }
     } else {
       connection.query(`
         WITH GoalsPerClubPerGame AS (

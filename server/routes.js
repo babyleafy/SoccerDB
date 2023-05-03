@@ -90,12 +90,12 @@ const top_players = async function (req, res) {
       if (data == undefined) {
         connection.query(`
           WITH AppearanceData AS (
-            SELECT player_id, ${orderBy}
+            SELECT player_id, SUM(${orderBy}) AS ${orderBy}
             FROM Appearances
+            GROUP BY player_id
           )
-          SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, SUM(${orderBy}) AS ${orderBy}
+          SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, ${orderBy}
           FROM Players NATURAL JOIN AppearanceData JOIN Clubs ON Players.club_id = Clubs.club_id
-          GROUP BY player_id, player_name
           ORDER BY ${orderBy} DESC
         `, (err, data) => {
           if (err || data.length === 0) {
@@ -112,12 +112,12 @@ const top_players = async function (req, res) {
     } else {
       connection.query(`
         WITH AppearanceData AS (
-          SELECT player_id, ${orderBy}
+          SELECT player_id, SUM(${orderBy}) AS ${orderBy}
           FROM Appearances
+          GROUP BY player_id
         )
-        SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, SUM(${orderBy}) AS ${orderBy}
+        SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, ${orderBy}
         FROM Players NATURAL JOIN AppearanceData JOIN Clubs ON Players.club_id = Clubs.club_id
-        GROUP BY player_id, player_name
         ORDER BY ${orderBy} DESC
         LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
       `, (err, data) => {

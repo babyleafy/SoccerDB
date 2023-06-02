@@ -24,10 +24,10 @@ export default {
                     key: 'club_name',
 
                 },
-                { title: 'Roster size', align: 'end', key: 'squad_size' },
-                { title: 'Market value (million €)', align: 'end', key: 'total_market_value' },
-                { title: 'Coach', align: 'end', key: 'coach_name' },
-                { title: 'ID', align: 'end', key: 'club_id' },
+                { title: 'Roster size', align: 'start', key: 'squad_size' },
+                { title: 'League', align: 'start', key: 'domestic_competition' },
+                { title: 'Stadium', align: 'start', key: 'stadium_name' },
+                { title: 'ID', align: 'start', key: 'club_id' },
             ]
         }
     },
@@ -40,3 +40,12 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+h1 {
+    color:aquamarine;
+    font-size: 2.5rem;
+    text-align: center;
+}
+</style>

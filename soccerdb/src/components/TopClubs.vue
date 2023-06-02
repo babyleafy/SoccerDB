@@ -5,25 +5,37 @@
       <h2>Which attribute do you want to rank by?</h2>
     </div>
     <div class="button-group">
-      <button class="rounded text-black" :class="{ 'bg-blue-500 text-white': orderBy === 'avg_goals' }"
+      <button class="rounded text-black" :class="{ 'bg-purple-500 text-white': orderBy === 'avg_goals' }"
         @click="sendRequest('avg_goals')">
         Average Goals <i class="emoji">⚽️</i>
       </button>
-      <button class="rounded text-black" :class="{ 'bg-indigo-500 text-white': orderBy === 'total_goals' }"
+      <button class="rounded text-black" :class="{ 'bg-blue-500 text-white': orderBy === 'total_goals' }"
         @click="sendRequest('total_goals')">
         Total Goals <i class="emoji">⚽️</i>
+      </button>
+      <button class="rounded text-black" :class="{ 'bg-indigo-500 text-white': orderBy === 'average_age' }"
+        @click="sendRequest('average_age')">
+        Average Age <i class="emoji">⌛</i>
       </button>
       <button class="rounded text-black" :class="{ 'bg-green-500 text-white': orderBy === 'value' }"
         @click="sendRequest('value')">
         Value <i class="emoji">💰</i>
       </button>
-      <button class="rounded text-black" :class="{ 'bg-red-500 text-white': orderBy === 'knockout_trophies' }"
+      <button class="rounded text-black" :class="{ 'bg-yellow-500 text-white': orderBy === 'knockout_trophies' }"
         @click="sendRequest('knockout_trophies')">
         Knockout Trophies <i class="emoji">🏆</i>
       </button>
-      <button class="rounded text-black" :class="{ 'bg-yellow-500 text-white': orderBy === 'average_age' }"
-        @click="sendRequest('average_age')">
-        Average Age <i class="emoji">⌛</i>
+      <button class="rounded text-black" :class="{ 'bg-red-500 text-white': orderBy === 'national_team_players' }"
+        @click="sendRequest('national_team_players')">
+        National Team Players <i class="emoji">🌎</i>
+      </button>
+      <button class="rounded text-black" :class="{ 'bg-pink-500 text-white': orderBy === 'foreigners_percentage' }"
+        @click="sendRequest('foreigners_percentage')">
+        Foreign Percentage <i class="emoji">🌐</i>
+      </button>
+      <button class="rounded text-black" :class="{ 'bg-gray-500 text-white': orderBy === 'stadium_seats' }"
+        @click="sendRequest('stadium_seats')">
+        Stadium Seats <i class="emoji">💺</i>
       </button>
     </div>
     <div class="table-container">
@@ -32,8 +44,7 @@
           <tr>
             <th>Rank</th>
             <th>Club</th>
-            <th>{{ orderBy.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() +
-              word.slice(1)).join('') }}</th>
+            <th>{{ orderBy.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') }}</th>
           </tr>
         </thead>
         <tbody v-if="!isLoaded && orderBy != ''">
@@ -119,7 +130,8 @@ export default {
   },
   methods: {
     sendRequest(orderBy) {
-      const url = `http://localhost:8081/top_clubs/${orderBy}`;
+      const config = require('../../config.json')
+      const url = `${config.backend_url}/top_clubs/${orderBy}`;
       this.orderBy = orderBy;
       this.isLoaded = false;
       fetch(url)
@@ -154,7 +166,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #f2f2f2;
@@ -218,7 +230,7 @@ button {
 }
 
 button:hover {
-  background-color: #a1cfff;
+  background-color: #c1ffcc73;
 }
 
 .button-group {

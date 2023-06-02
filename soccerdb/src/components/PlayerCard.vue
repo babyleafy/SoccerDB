@@ -1,23 +1,20 @@
 <template>
-    <v-card v-if="data" align='center'>
+    <v-card v-if="data" align='center' :style="{ borderRadius: '5px', width: '100%' }" class="custom-card">
         <v-img
-          :src="data.image_url"
-          cover
-          class="text-white"
-          style="height: 300px; width: 100%; object-fit: cover;"
-        > </v-img>
-        <v-card-text align='left'>
-          <h2>
-            {{ data.player_name }}
-          </h2>
+            :src="data.image_url"
+            cover
+            class="profile-picture"
+        ></v-img>
+        <v-card-text>
+          <h2 class="player-name">{{ data.player_name }}</h2>
           <p>Club: {{ data.club_name ? data.club_name : "No club" }}</p>
           <p>Country: {{ data.country }}</p>
-          <p>Date of birth: {{ datestring }}</p>
+          <p>Date of Birth: {{ datestring }}</p>
           <p>Position: {{ data.position }}</p>
           <p>Foot: {{ data.foot }}</p>
           <p>Height (cm): {{data.height_in_cm}}</p>
-          <p>Market value (€): {{ data.market_value_in_eur ? Number(data.market_value_in_eur).toLocaleString(undefined) : "unknown" }}</p>
-          <p>Max Market value (€): {{ Number(data.highest_market_value_in_eur).toLocaleString(undefined) }}</p>
+          <p>Market Value (€): {{ data.market_value_in_eur ? Number(data.market_value_in_eur).toLocaleString(undefined) : "unknown" }}</p>
+          <p>Max Market Value (€): {{ Number(data.highest_market_value_in_eur).toLocaleString(undefined) }}</p>
           <p>FIFA Rating: {{ stats ? stats.overall : 'Not Found' }}</p>
           <div v-if="stats !== null && stats.shooting !== null">
             <radar-chart :key="stats._id" :pace="stats.pace" :shooting="stats.shooting" :passing="stats.passing" :dribbling="stats.dribbling" :defending="stats.defending" :physic="stats.physic" />
@@ -58,7 +55,6 @@ export default {
           mode: 'cors',
         });
         const data = await response.json();
-        console.log(data.data);
         this.stats = data.data;
       } catch (error) {
         console.log(error);
@@ -73,7 +69,6 @@ export default {
 
            res => {
             if (res.ok) {
-              //this.data=res.json()
               return res.json()
             }
             else {
@@ -115,37 +110,44 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  background-color: #FFFFFF;
+.custom-card {
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  width: 300px;
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+.profile-picture {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin-top: 16px;
+  border: 3px solid black;
+}
+
+.player-name {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.custom-card h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .text-white {
   color: #FFFFFF;
 }
 
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 20px;
-  text-transform: uppercase;
-}
-
 p {
   font-size: 16px;
-  margin: 10px 0;
+  text-align: left;
 }
+
 .v-card-text {
   padding: 20px;
+  margin: 3px 0;
 }
 
 .v-card-text p:first-of-type {

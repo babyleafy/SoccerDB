@@ -133,7 +133,8 @@
         this.selectedPlayerName = playerName;
       },
       async sendMongoRequest(orderBy) {
-        const url = 'http://localhost:8081/top_fifa';
+        const config = require('../../config.json')
+        const url = `${config.backend_url}/top_fifa`;
         this.orderBy = orderBy;
         this.isLoaded = false;
         try {
@@ -149,7 +150,8 @@
         }
       },
       sendRequest(orderBy) {
-        const url = `http://localhost:8081/top_players/${orderBy}`;
+        const config = require('../../config.json')
+        const url = `${config.backend_url}/top_players/${orderBy}`;
         this.orderBy = orderBy;
         this.isLoaded = false;
         fetch(url)
@@ -184,12 +186,11 @@
   };
   </script>
 
-<style>
+<style scoped>
   body {
     font-family: 'Open Sans', sans-serif;
     background-color: #f2f2f2;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -245,7 +246,7 @@
   }
 
   button:hover {
-    background-color: #a1cfff;
+    background-color: #c1ffcc73;
   }
 
   .button-group {

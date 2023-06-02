@@ -1,38 +1,37 @@
 <template>
-    <v-card class="mx-auto" color="grey-lighten-3">
+    <v-card class="mx-auto" color="grey-lighten-3" :style="{ borderRadius: '5px' }">
       <v-card-text>
         <v-text-field
-          :loading="loading"
-          v-model="name"
-          dense
-          outlined
-          type="search"
-          label="Search players"
-          @change="fetchData"
-          append-icon="mdi-magnify"
-          single-line
-          hide-details
-          @click:append="fetchData"
+            :loading="loading"
+            v-model="name"
+            dense
+            outlined
+            type="search"
+            label="Search players"
+            @change="fetchData"
+            append-icon="mdi-magnify"
+            single-line
+            hide-details
+            @click:append="fetchData"
         ></v-text-field>
       </v-card-text>
     </v-card>
-  <v-data-table
-    class="custom-table"
-    v-model:items-per-page="itemsPerPage"
-    :headers="headers"
-    :items="data"
-    item-value="club_name"
-    @click:row="handleRowClick"
-    :dense="true"
-    :footer-props="{ showFirstLastPage: true }"
-    :items-per-page-options="[10, 20, 50]"
-    :loading="loading"
-    :loading-text="'Loading...'"
-    :no-data-text="'No results found.'"
-    :no-results-text="'No matching records found'"
-    :search="name">
-        
-        </v-data-table>
+    <v-data-table
+        class="custom-table"
+        v-model:items-per-page="itemsPerPage"
+        :headers="headers"
+        :items="data"
+        item-value="club_name"
+        @click:row="handleRowClick"
+        :dense="true"
+        :footer-props="{ showFirstLastPage: true }"
+        :items-per-page-options="[10, 20, 50]"
+        :loading="loading"
+        :loading-text="'Loading...'"
+        :no-data-text="'No results found.'"
+        :no-results-text="'No matching records found'"
+        :search="name">
+    </v-data-table>
 </template>
 
 <script>
@@ -57,18 +56,15 @@ export default {
                     key: 'player_name',
 
                 },
-                { title: 'Club', align: 'end', key: 'club_name' },
-                { title: 'Date of birth', align: 'end', key: 'dob' },
-                { title: 'Country', align: 'end', key: 'country' },
-                { title: 'Position', align: 'end', key: 'position' },
-                { title: 'ID', align: 'end', key: 'player_id' },
+                { title: 'Club', align: 'start', key: 'club_name' },
+                { title: 'Date of Birth', align: 'start', key: 'dob' },
+                { title: 'Country', align: 'start', key: 'country' },
+                { title: 'Position', align: 'start', key: 'position' },
+                { title: 'ID', align: 'start', key: 'player_id' },
             ],
         }
     },
     methods: {
-        /**
-         * TODO: REPLACE WITH ACTUAL FETCH / API ROUTING
-         */
         fetchData() {
             this.loading = true
             const config = require('../../config.json')

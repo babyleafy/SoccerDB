@@ -17,7 +17,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 
   .button-group-container {
     display: flex;
@@ -27,6 +27,7 @@
   .button-group {
     display: flex;
     justify-content: center;
+    margin-top: 5px;
   }
 
   .button {
@@ -51,4 +52,6 @@
     background-color: #4CAF50;
     color: white;
   }
+
+  
 </style>

@@ -49,9 +49,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   h1 {
     text-align: center;
+    font-size: 3rem;
+    margin: 3rem;
   }
 
   .text-h2 {

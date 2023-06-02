@@ -49,18 +49,14 @@ export default {
                     key: 'club_name',
 
                 },
-                { title: 'Roster size', align: 'end', key: 'squad_size' },
-                { title: 'Market value (million €)', align: 'end', key: 'total_market_value' },
-                { title: 'Coach', align: 'end', key: 'coach_name' },
-                { title: 'ID', align: 'end', key: 'club_id' },
-                
+                { title: 'Roster size', align: 'start', key: 'squad_size' },
+                { title: 'League', align: 'start', key: 'domestic_competition' },
+                { title: 'Stadium', align: 'start', key: 'stadium_name' },
+                { title: 'ID', align: 'start', key: 'club_id' },
             ],
         }
     },
     methods: {
-        /**
-         * TODO: REPLACE WITH ACTUAL FETCH / API ROUTING
-         */
         fetchData() {
             this.loading = true
             const config = require('../../config.json')
@@ -86,7 +82,11 @@ export default {
                         this.data = [{}, {}]
                     }
                     else {
-                        this.data = data
+                        data = data.map((item) => {
+                            item.domestic_competition = item.domestic_competition.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+                            return item
+                        })
+                        this.data = data;
                     }
                     
                 }

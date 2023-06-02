@@ -3,8 +3,8 @@
     <h1 class="title">The Top: Find the Most Extreme Stats!</h1>
   </div>
   <div class="btn-group">
-    <button class="btn" :class="{ active: selected === 'clubs' }" @click="selected = 'clubs'">Clubs</button>
     <button class="btn" :class="{ active: selected === 'players' }" @click="selected = 'players'">Players</button>
+    <button class="btn" :class="{ active: selected === 'clubs' }" @click="selected = 'clubs'">Clubs</button>
   </div>
   
   <div v-if="selected === 'clubs'">
@@ -36,7 +36,7 @@
   };
 </script>
   
-<style>
+<style scoped>
   .container {
     display: flex;
     flex-direction: column;

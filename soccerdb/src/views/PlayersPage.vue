@@ -1,28 +1,29 @@
 <template>
-    <div>
+    <div :style="{ display: 'flex', justifyContent: 'center' }">
         <v-container>
             <v-row no-gutters>
-                <v-col justify="start">
-                <v-sheet class="pa-2 ma-2">
-                    <PlayerSearch 
-                        @changeHoveredPlayer="changeHoveredPlayer($event)"
-                        @add-selected-player="addSelectedPlayer($event)"/>
-                </v-sheet>
-                </v-col>
-                <v-col cols="3">
-                    <v-sheet class="pa-2 ma-2">
-                        <PlayerCard :id=id :name=name></PlayerCard>
+                <v-col cols="8" class="pa-0 ma-0" >
+                    <v-sheet class="pa-2 ma-2 custom-sheet" color="#1A202C" :style="{ borderRadius: '5px' }">
+                        <PlayerSearch 
+                            @changeHoveredPlayer="changeHoveredPlayer($event)"
+                            @add-selected-player="addSelectedPlayer($event)"/>
                     </v-sheet>
                 </v-col>
-                <v-col>
+                <v-col cols="4" class="pa-0 ma-0">
+                    <v-sheet class="pa-2 ma-2 custom-sheet" color="#1A202C" :style="{ borderRadius: '5px' }">
+                        <PlayerCard :id=id :name=name />
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-row no-gutters justify="center">
+                <v-sheet class="pa-2 ma-2 custom-sheet" color="#1A202C" :style="{ borderRadius: '5px' }">
                     <SelectedPlayers 
                         :selected="selected" 
                         @removeSelectedPlayer="removeSelectedPlayer($event)"/>
-                </v-col>
-                <v-row>
-                    <LineChart title="Goals Scored" :key="chartKey" @fetch-data="fetchGoals"/>
-                </v-row>
-                
+                </v-sheet>
+            </v-row>
+            <v-row no-gutters justify="center">
+                <LineChart title="Goals Scored" :key="chartKey" @fetch-data="fetchGoals"/>
             </v-row>
         </v-container>
     </div>
@@ -115,3 +116,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .custom-sheet:hover {
+        box-shadow: 4px 4px 8px rgba(53, 52, 52, 0.673);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+</style>

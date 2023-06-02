@@ -1,20 +1,20 @@
 <template>
-      <v-card class="card" v-if="data" align='center'>
-        <v-img
-          src=""
-          cover
-          class="text-white"
-        > </v-img>
-        <v-card-text align='left'>
-          <h2>
-            {{ data.club_name }}
-          </h2>
-          <p>Roster size: {{ data.squad_size }}</p>
-          <p>Market value (million €): {{ data.total_market_value ? Number(data.total_market_value).toLocaleString(undefined) : "unknown" }}</p>
-          <p>Coach name: {{ data.coach_name }}</p>
-          <p>Top Player: {{ topPlayer }}</p>
-          <p>Id: {{ data.club_id }}</p>
-        </v-card-text>
+    <v-card class="custom-card" v-if="data" align='center' :style="{ borderRadius: '5px', width: '100%' }">
+      <v-img
+        src=""
+        cover
+        class="text-white"
+      > </v-img>
+      <v-card-text>
+        <h2>
+          {{ data.club_name }}
+        </h2>
+        <p>League: {{ data.domestic_competition ? data.domestic_competition.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "" }}</p>
+        <p>Stadium: {{ data.stadium_name }}</p>
+        <p>Roster Size: {{ data.squad_size ? data.squad_size : "Unknown" }}</p>
+        <p>Market Value (€): {{ marketValue ? marketValue.toLocaleString() : "Unknown" }}</p>
+        <p>Top Player: {{ topPlayer }}</p>
+      </v-card-text>
     </v-card>
 </template>
 
@@ -32,6 +32,7 @@ export default {
             data: null,
             topPlayer: "",
             topPlayersData: [],
+            marketValue: 0,
         }
     },
     methods: {
@@ -50,7 +51,8 @@ export default {
             )
         },
         async setTopPlayersData() {
-            const url = `http://localhost:8081/top_players_in_clubs`;
+            const config = require('../../config.json')
+            const url = `${config.backend_url}/top_players_in_clubs`;
             await fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -58,11 +60,20 @@ export default {
             })
             .catch(error => console.error(error));
         },
+        async setMarketValue(id) {
+            const config = require('../../config.json')
+            const url = `${config.backend_url}/clubs/market_value/${id}`;
+            await fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.marketValue = data[0].value;
+            })
+            .catch(error => console.error(error));
+        },
         setTopPlayer() {
             for (let i = 0; i < this.topPlayersData.length; i++) {
                 if (this.topPlayersData[i].club_id === this.id) {
                     this.topPlayer = this.topPlayersData[i].player_name
-                    console.log(this.topPlayer)
                     return
                 }
             }
@@ -70,32 +81,25 @@ export default {
         }
     },
     mounted() {
-        this.fetchData(this.id)
-        this.setTopPlayersData().then(() => this.setTopPlayer())
-        
+        this.fetchData(this.id);
+        this.setTopPlayersData().then(() => this.setTopPlayer());
+        this.setMarketValue(this.id);
     },
     watch: {
         id(newId, oldId) {
-            this.fetchData(newId)
-            this.setTopPlayer()
+            this.fetchData(newId);
+            this.setTopPlayer();
+            this.setMarketValue(newId);
         }
     }
 }
 </script>
 
 <style scoped>
-.card {
-  background-color: #FFFFFF;
+.custom-card {
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  width: 300px;
-  transition: all 0.3s ease-in-out;
-}
-
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
 .text-white {
@@ -105,16 +109,18 @@ export default {
 h2 {
   font-size: 24px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-bottom: 16px;
   text-transform: uppercase;
 }
 
 p {
   font-size: 16px;
-  margin: 10px 0;
+  text-align: left;
 }
+
 .v-card-text {
   padding: 20px;
+  margin: 3px 0;
 }
 
 .v-card-text p:first-of-type {

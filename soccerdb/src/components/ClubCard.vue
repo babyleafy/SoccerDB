@@ -6,9 +6,7 @@
         class="text-white"
       > </v-img>
       <v-card-text>
-        <h2>
-          {{ data.club_name }}
-        </h2>
+        <h2> {{ data.club_name }} </h2>
         <p>League: {{ data.domestic_competition ? data.domestic_competition.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "" }}</p>
         <p>Stadium: {{ data.stadium_name }}</p>
         <p>Roster Size: {{ data.squad_size ? data.squad_size : "Unknown" }}</p>
@@ -111,6 +109,11 @@ h2 {
   font-weight: bold;
   margin-bottom: 16px;
   text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  background-clip: text;
+  background-image: linear-gradient(to right, #ff007b, #7033ff); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
 }
 
 p {

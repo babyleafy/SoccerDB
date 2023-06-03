@@ -22,7 +22,8 @@ app.get('/player_goals/:player_id', routes.player_goals);
 app.get('/top_players/:orderBy', routes.top_players);
 app.get('/players_fifa/:name', routes.players_fifa);
 app.get('/top_fifa', routes.top_fifa);
-app.get('/top_players_in_clubs', routes.top_players_in_clubs)
+app.get('/top_players_in_clubs', routes.top_players_in_clubs);
+app.get('/clubs/market_value/:club_id', routes.club_market_value);
 
 app.listen(config.server_port, () => {
   console.log(`Server running at http://${config.server_host}:${config.server_port}/`)

@@ -1,9 +1,9 @@
 {
-  "rds_host": "database-1.cgeveumwg5sq.us-east-1.rds.amazonaws.com",
+  "rds_host": "soccerdb.cekqmgg4jizi.us-east-1.rds.amazonaws.com",
   "rds_port": "3306",
-  "rds_user": "admin",
-  "rds_password" : "3KpDJ8gbBfsGeiBqtqGe",
-  "rds_db": "Soccer",
+  "rds_user": "soccerdb",
+  "rds_password" : "soccerdb",
+  "rds_db": "SOCCER_DB",
   "server_host": "localhost",
   "server_port":"8081"
 }

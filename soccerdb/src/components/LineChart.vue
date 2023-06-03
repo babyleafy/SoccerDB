@@ -8,44 +8,44 @@
 <script>
 
 const data = {
-        datasets: [
-            {
-            label: "MESSI",
-            data: [{
-                x: '2021-03-05 23:39:30',
-                y: 50
-            }, {
-                x: '2021-08-05 01:00:28',
-                y: 60
-            }, {
-                x: '2021-11-07 09:00:28',
-                y: 20
-            }]
+    datasets: [
+        {
+        label: "MESSI",
+        data: [{
+            x: '2021-03-05 23:39:30',
+            y: 50
+        }, {
+            x: '2021-08-05 01:00:28',
+            y: 60
+        }, {
+            x: '2021-11-07 09:00:28',
+            y: 20
         }],
-    }
+    }],
+}
 
 const options = {
-  responsive: true,
-  maintainAspectRatio: true,
-  scales: {
-            x: {
-                type: 'time',
-                time: {
-                    unit: 'year',
-                    tooltipFormat: 'YYYY'
-                },
-                title: {
-                  display: true,
-                  text: 'Year'
-                }
+    responsive: true,
+    maintainAspectRatio: true,
+    scales: {
+        x: {
+            type: 'time',
+            time: {
+                unit: 'year',
+                tooltipFormat: 'YYYY'
             },
-            y: {
-              title: {
+            title: {
                 display: true,
-                text: 'Goals Scored'
-              }
+                text: 'Year'
             }
-  }
+        },
+        y: {
+            title: {
+            display: true,
+            text: 'Goals Scored'
+            },
+        }
+    }
 }
 
 import {
@@ -97,6 +97,7 @@ export default {
     },
     mounted() {
         this.$emit("fetchData", (d) => this.setData(d))
-    }
+    },
+    
 }
 </script>

@@ -129,15 +129,16 @@ export default {
   margin-bottom: 0px;
 }
 
-.custom-card h2 {
+h2 {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 16px;
+  padding-bottom: 10px;
   text-transform: uppercase;
-}
-
-.text-white {
-  color: #FFFFFF;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  background-clip: text;
+  background-image: linear-gradient(to right, #06dd8b, #4133ff); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
 }
 
 p {

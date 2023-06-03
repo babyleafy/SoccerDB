@@ -37,7 +37,7 @@ export default {
           labels: ['Pace', 'Shooting', 'Passing', 'Dribbling', 'Defense', 'Physical'],
           datasets: [
             {
-              label: 'Stats',
+              label: 'FIFA Stats',
               data: [this.pace, this.shooting, this.passing, this.dribbling, this.defending, this.physic],
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               borderColor: 'rgba(54, 162, 235, 1)',
@@ -49,6 +49,8 @@ export default {
           responsive: true,
           maintainAspectRatio: true,
           scale: {
+            min: 20,
+            max: 99,
             ticks: {
               stepSize: 10,
               values: [20, 30, 40, 50, 60, 70, 80, 90, 99],

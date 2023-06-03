@@ -69,7 +69,7 @@ export default {
         },
         removeSelectedPlayer(key) {
             this.selected.delete(key)
-            this.chartKey += 1
+            this.chartKey -= 1
         },
         async fetchGoals(setData) {
             const fetchData = async () => { 
@@ -110,8 +110,6 @@ export default {
                 setData(this.goalData)
             }
             await fetchData()
-            
-            
         }
     }
 }

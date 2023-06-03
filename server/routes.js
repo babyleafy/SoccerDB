@@ -90,12 +90,12 @@ const top_players = async function (req, res) {
       if (data == undefined) {
         connection.query(`
           WITH AppearanceData AS (
-            SELECT player_id, ${orderBy}
+            SELECT player_id, SUM(${orderBy}) AS ${orderBy}
             FROM Appearances
+            GROUP BY player_id
           )
-          SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, SUM(${orderBy}) AS ${orderBy}
+          SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, ${orderBy}
           FROM Players NATURAL JOIN AppearanceData JOIN Clubs ON Players.club_id = Clubs.club_id
-          GROUP BY player_id, player_name
           ORDER BY ${orderBy} DESC
         `, (err, data) => {
           if (err || data.length === 0) {
@@ -112,12 +112,12 @@ const top_players = async function (req, res) {
     } else {
       connection.query(`
         WITH AppearanceData AS (
-          SELECT player_id, ${orderBy}
+          SELECT player_id, SUM(${orderBy}) AS ${orderBy}
           FROM Appearances
+          GROUP BY player_id
         )
-        SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, SUM(${orderBy}) AS ${orderBy}
+        SELECT Players.player_id, Players.player_name, Clubs.club_name AS club, Players.position, ${orderBy}
         FROM Players NATURAL JOIN AppearanceData JOIN Clubs ON Players.club_id = Clubs.club_id
-        GROUP BY player_id, player_name
         ORDER BY ${orderBy} DESC
         LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
       `, (err, data) => {
@@ -379,38 +379,6 @@ const top_clubs = async function (req, res) {
       data = cache.get("total_goals");
       if (data == undefined) {
         connection.query(`
-            WITH HomeGoals AS (
-              SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-              FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
-              GROUP BY player_club_id
-            ),
-            AwayGoals AS (
-              SELECT player_club_id AS club_id, SUM(goals) AS club_goals
-              FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
-              GROUP BY player_club_id
-            ),
-            ClubNames AS (
-              SELECT club_id, club_name
-              FROM Clubs
-            )
-            SELECT HomeGoals.club_id, club_name, ((HomeGoals.club_goals) + (AwayGoals.club_goals)) AS total_goals
-            FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
-            GROUP BY club_id, club_name
-            ORDER BY total_goals DESC
-          `, (err, data) => {
-          if (err || data.length === 0) {
-            console.log(err);
-            res.json([]);
-          } else {
-            cache.set("total_goals", data);
-            res.json(data);
-          }
-        });
-      } else {
-        res.json(data);
-      }
-    } else {
-      connection.query(`
           WITH HomeGoals AS (
             SELECT player_club_id AS club_id, SUM(goals) AS club_goals
             FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
@@ -429,8 +397,40 @@ const top_clubs = async function (req, res) {
           FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
           GROUP BY club_id, club_name
           ORDER BY total_goals DESC
-          LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
         `, (err, data) => {
+          if (err || data.length === 0) {
+            console.log(err);
+            res.json([]);
+          } else {
+            cache.set("total_goals", data);
+            res.json(data);
+          }
+        });
+      } else {
+        res.json(data);
+      }
+    } else {
+      connection.query(`
+        WITH HomeGoals AS (
+          SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+          FROM Appearances JOIN Games ON Appearances.player_club_id = Games.home_club_id AND Appearances.game_id = Games.game_id
+          GROUP BY player_club_id
+        ),
+        AwayGoals AS (
+          SELECT player_club_id AS club_id, SUM(goals) AS club_goals
+          FROM Appearances JOIN Games ON Appearances.player_club_id = Games.away_club_id AND Appearances.game_id = Games.game_id
+          GROUP BY player_club_id
+        ),
+        ClubNames AS (
+          SELECT club_id, club_name
+          FROM Clubs
+        )
+        SELECT HomeGoals.club_id, club_name, ((HomeGoals.club_goals) + (AwayGoals.club_goals)) AS total_goals
+        FROM (HomeGoals JOIN AwayGoals ON HomeGoals.club_id = AwayGoals.club_id) JOIN ClubNames ON HomeGoals.club_id = ClubNames.club_id
+        GROUP BY club_id, club_name
+        ORDER BY total_goals DESC
+        LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+      `, (err, data) => {
         if (err || data.length === 0) {
           console.log(err);
           res.json([]);

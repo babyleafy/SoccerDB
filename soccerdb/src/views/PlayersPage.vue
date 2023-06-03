@@ -69,44 +69,46 @@ export default {
         },
         removeSelectedPlayer(key) {
             this.selected.delete(key)
-            this.chartKey -= 1
+            this.chartKey += 1
         },
         async fetchGoals(setData) {
             const fetchData = async () => { 
+                this.goalMap = new Map();
+                
                 for (const [id] of this.selected) {
-                    if (!this.goalMap.has(id)) {
-                        await fetch(`${config.backend_url}/player_goals/${id}`).then(
-                            res => {
-                                if (res.ok) {
-                                    return res.json()
-                                }
+                    await fetch(`${config.backend_url}/player_goals/${id}`).then(
+                        res => {
+                            if (res.ok) {
+                                return res.json()
                             }
-                        ).then(
-                            res => {
-                                const chartPoint = {
-                                    label: res[0].player_name,
-                                    data: []
-                                }
-                                res.forEach((season) => {
-                                    chartPoint.data.push(
-                                        {
-                                            x: `${season.season}-01-01 23:39:30`,
-                                            y: season.goal_count
-                                        }
-                                    )
-                                })
-                                
-                                this.goalMap.set(id, chartPoint)
+                        }
+                    ).then(
+                        res => {
+                            const chartPoint = {
+                                label: res[0].player_name,
+                                data: []
                             }
-                        )
-                    }
+                            res.forEach((season) => {
+                                chartPoint.data.push(
+                                    {
+                                        x: `${season.season}-01-01 23:39:30`,
+                                        y: season.goal_count
+                                    }
+                                )
+                            })
+                            
+                            this.goalMap.set(id, chartPoint)
+                        }
+                    )
                 }
                 this.goalData.datasets.length = 0
-                
+                                
                 for (const [key] of this.goalMap) {
                     this.goalData.datasets.push(this.goalMap.get(key))
                 }
-                
+
+                console.log(this.goalData.datasets);
+
                 setData(this.goalData)
             }
             await fetchData()

@@ -1,4 +1,4 @@
-# Soccer DB - CIS 5500 Final Project
+# Soccer DB - Statistics Visualizer
 
 We created a website that integrates information about soccer players in real life from the Transfermarkt news website and the popular soccer game, FIFA.
 

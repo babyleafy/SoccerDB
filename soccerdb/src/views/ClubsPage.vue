@@ -15,7 +15,7 @@
                     </v-sheet>                    
                 </v-col>
             </v-row>
-            <v-row no-gutters justify="center">
+            <v-row no-gutters justify="center" style="padding-bottom: 24px;">
                 <v-sheet class="pa-2 ma-2 custom-sheet" color="#1A202C" :style="{ borderRadius: '5px' }">
                     <SelectedClubs
                         :selected="selected" 
@@ -98,6 +98,12 @@ export default {
     .custom-sheet:hover {
         box-shadow: 4px 4px 8px rgba(53, 52, 52, 0.673);
         transition: box-shadow 0.3s ease-in-out;
+    }
+
+    h1 {
+        color: rgb(0, 12, 8);
+        font-size: 2.5rem;
+        text-align: center;
     }
 
 </style>

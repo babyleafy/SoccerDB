@@ -227,12 +227,12 @@ const player_goals = async function (req, res) {
 
   connection.query(`
     WITH Goals AS (
-      SELECT player_id, player_club_id, season, SUM(goals) AS goal_count
+      SELECT player_id, player_club_id, season, SUM(goals) AS goals_count
       FROM Appearances NATURAL JOIN Games
       WHERE player_id = ${player_id}
       GROUP BY player_id, player_club_id, season
     )
-    SELECT player_id, player_name, club_name, season, goal_count
+    SELECT player_id, player_name, club_name, season, goals_count
     FROM (Players NATURAL JOIN Goals) JOIN Clubs on player_club_id = Clubs.club_id
     ORDER BY season DESC, club_name ASC
   `, (err, data) => {
@@ -243,7 +243,56 @@ const player_goals = async function (req, res) {
       res.json(data);
     }
   });
+} 
+
+// GET /player_assists
+const player_assists = async function (req, res) {
+  const player_id = req.params.player_id;
+
+  connection.query(`
+    WITH Assists AS (
+      SELECT player_id, player_club_id, season, SUM(assists) AS assists_count
+      FROM Appearances NATURAL JOIN Games
+      WHERE player_id = ${player_id}
+      GROUP BY player_id, player_club_id, season
+    )
+    SELECT player_id, player_name, club_name, season, assists_count
+    FROM (Players NATURAL JOIN Assists) JOIN Clubs on player_club_id = Clubs.club_id
+    ORDER BY season DESC, club_name ASC
+  `, (err, data) => {
+    if (err || data.length === 0) {
+      console.log(err);
+      res.json([]);
+    } else {
+      res.json(data);
+    }
+  });
 }
+
+// GET /player_minutes
+const player_minutes = async function (req, res) {
+  const player_id = req.params.player_id;
+
+  connection.query(`
+    WITH Minutes AS (
+      SELECT player_id, player_club_id, season, SUM(minutes_played) AS minutes_count
+      FROM Appearances NATURAL JOIN Games
+      WHERE player_id = ${player_id}
+      GROUP BY player_id, player_club_id, season
+    )
+    SELECT player_id, player_name, club_name, season, minutes_count
+    FROM (Players NATURAL JOIN Minutes) JOIN Clubs on player_club_id = Clubs.club_id
+    ORDER BY season DESC, club_name ASC
+  `, (err, data) => {
+    if (err || data.length === 0) {
+      console.log(err);
+      res.json([]);
+    } else {
+      res.json(data);
+    }
+  });
+}
+
 
 /******************
  * CLUBS ROUTES *
@@ -649,6 +698,8 @@ module.exports = {
   player_name,
   top_players,
   player_goals,
+  player_assists,
+  player_minutes,
   clubs,
   club_id,
   club_name,

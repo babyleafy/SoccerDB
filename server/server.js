@@ -19,6 +19,8 @@ app.get('/club_name/:club_name', routes.club_name);
 app.get('/top_players/:orderBy', routes.top_players);
 app.get('/top_clubs/:orderBy', routes.top_clubs);
 app.get('/player_goals/:player_id', routes.player_goals);
+app.get('/player_assists/:player_id', routes.player_assists);
+app.get('/player_minutes/:player_id', routes.player_minutes);
 app.get('/top_players/:orderBy', routes.top_players);
 app.get('/players_fifa/:name', routes.players_fifa);
 app.get('/top_fifa', routes.top_fifa);

@@ -1,7 +1,4 @@
 <template>
-    <div>
-        <h1> {{title}} </h1>
-    </div>
     <Line :data="data" :options="options" />
 </template>
 
@@ -27,6 +24,11 @@ const data = {
 const options = {
     responsive: true,
     maintainAspectRatio: true,
+    elements: {
+        line: {
+            tension : 0.25
+        },
+    },
     scales: {
         x: {
             type: 'time',
@@ -37,12 +39,12 @@ const options = {
             title: {
                 display: true,
                 text: 'Year'
-            }
+            },
         },
         y: {
             title: {
             display: true,
-            text: 'Goals Scored'
+            text: 'Count'
             },
         }
     }

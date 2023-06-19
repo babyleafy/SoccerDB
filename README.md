@@ -9,6 +9,7 @@ A full-stack website that integrates information about soccer players in real li
 - Amazon RDS
 - Express
 - Node.js
+- MongoDB
 
 ### Web Previews:
 ![screencapture-localhost-8080-players-2023-06-07-09_59_20](https://github.com/tonyjongyoonan/soccerdb/assets/97144786/75798804-6c53-42bb-9776-7b5addf2e363)

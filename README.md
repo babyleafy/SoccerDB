@@ -1,5 +1,5 @@
 # SoccerDB - Statistics Visualizer
-## (C) Erik Wei
+© Erik Wei
 A full-stack website that integrates information about soccer players in real life from the Transfermarkt news website and the popular soccer game, FIFA.
 
 ### Tech Stack:

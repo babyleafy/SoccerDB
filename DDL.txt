@@ -1,16 +1,20 @@
 CREATE TABLE Clubs (
     club_id INT,
     club_name VARCHAR(50),
-    total_market_value FLOAT(6),
     squad_size INT,
     average_age FLOAT(6),
-    coach_name VARCHAR(50),
+    foreigners_percentage FLOAT(6),
+    national_team_players INT,
+    stadium_name VARCHAR(50),
+    stadium_seats INT,
+    domestic_competition VARCHAR(50),
     PRIMARY KEY (club_id)
 );
 
 CREATE TABLE Players (
     player_id INT,
     player_name VARCHAR(50),
+    last_season INT NOT NULL,
     club_id INT NOT NULL,
     country VARCHAR(60),
     date_of_birth VARCHAR(10),
@@ -20,7 +24,6 @@ CREATE TABLE Players (
     market_value_in_eur INT,
     highest_market_value_in_eur INT,
     image_url VARCHAR(150),
-    last_season INT NOT NULL,
     FOREIGN KEY (club_id) REFERENCES Clubs (club_id),
     PRIMARY KEY (player_id)
 );
@@ -33,8 +36,9 @@ CREATE TABLE Games (
     game_date VARCHAR(10),
     home_club_id INT NOT NULL,
     away_club_id INT NOT NULL,
+    home_club_goals INT,
+    away_club_goals INT,
     stadium VARCHAR(50),
-    attendance INT,
     FOREIGN KEY (home_club_id) REFERENCES Clubs (club_id),
     FOREIGN KEY (away_club_id) REFERENCES Clubs (club_id),
     PRIMARY KEY (game_id)

@@ -1,0 +1,412 @@
+,club_id,club_name,squad_size,average_age,foreigners_percentage,national_team_players,stadium_name,stadium_seats,domestic_competition
+167,3,1.FC Köln,34,24.8,32.4,7,RheinEnergieSTADION,50000,bundesliga
+380,4,1.FC Nuremberg,33,25.2,21.2,2,Max-Morlock-Stadion,50000,bundesliga
+311,5,AC Milan,30,27.1,80.0,17,Giuseppe Meazza,75923,serie-a
+49,6,Adanaspor,10,23.9,40.0,0,Yeni Adana Stadyumu,33000,super-lig
+234,10,Arminia Bielefeld,27,25.3,55.6,4,SchücoArena,26515,bundesliga
+288,11,Arsenal FC,27,25.1,70.4,18,Emirates Stadium,60704,premier-league
+127,12,AS Roma,28,26.3,67.9,15,Olimpico di Roma,73261,serie-a
+238,13,Atlético de Madrid,22,28.7,68.2,15,Civitas Metropolitano,68456,laliga
+369,15,Bayer 04 Leverkusen,27,24.9,70.4,12,BayArena,30210,bundesliga
+241,16,Borussia Dortmund,33,24.7,51.5,16,SIGNAL IDUNA PARK,81365,bundesliga
+103,18,Borussia Mönchengladbach,27,26.0,51.9,9,Stadion im Borussia-Park,54042,bundesliga
+374,19,Brescia Calcio,28,25.1,42.9,1,Mario Rigamonti,19550,serie-a
+193,20,Bursaspor,26,21.4,,0,Bursa Büyükşehir Belediye Stadyumu,43361,super-lig
+138,23,Eintracht Braunschweig,29,26.0,31.0,0,EINTRACHT-Stadion,23325,bundesliga
+140,24,Eintracht Frankfurt,31,25.1,58.1,11,Deutsche Bank Park,51500,bundesliga
+107,27,Bayern Munich,27,26.6,59.3,21,Allianz Arena,75024,bundesliga
+329,29,Everton FC,25,27.5,48.0,10,Goodison Park,39571,premier-league
+168,31,Liverpool FC,30,26.8,70.0,17,Anfield,54074,premier-league
+84,33,FC Schalke 04,32,27.4,56.3,6,Veltins-Arena,62271,bundesliga
+169,36,Fenerbahce,29,26.7,51.7,14,Ülker Stadyumu FB Şükrü Saraçoğlu Spor Kompleksi,47834,super-lig
+379,38,Fortuna Düsseldorf,29,25.9,41.4,2,MERKUR SPIEL-ARENA,54600,bundesliga
+113,39,1.FSV Mainz 05,27,25.3,48.1,7,Mewa Arena,33305,bundesliga
+352,40,FC Girondins Bordeaux,26,22.7,50.0,6,Matmut Atlantique,42115,ligue-1
+399,41,Hamburger SV,30,23.6,50.0,4,Volksparkstadion,57000,bundesliga
+308,42,Hannover 96,28,25.0,21.4,1,Heinz-von-Heiden-Arena,49000,bundesliga
+400,43,Heart of Midlothian FC,31,26.3,48.4,9,Tynecastle Park,19852,scottish-premiership
+309,44,Hertha BSC,29,26.1,55.2,8,Olympiastadion Berlin,74667,bundesliga
+47,46,Inter Milan,29,27.8,58.6,16,Giuseppe Meazza,75923,serie-a
+178,47,Iraklis Thessaloniki,27,24.3,33.3,0,Kaftanzoglio Stadio,27770,super-league-1
+151,58,RSC Anderlecht,26,24.7,46.2,10,Lotto Park,21500,jupiler-pro-league
+18,60,SC Freiburg,26,26.4,38.5,10,Europa-Park Stadion,34700,bundesliga
+259,65,SpVgg Greuther Fürth,28,24.0,39.3,2,Sportpark Ronhof | Thomas Sommer,16626,bundesliga
+386,79,VfB Stuttgart,30,23.7,53.3,8,Mercedes-Benz Arena,60449,bundesliga
+120,80,VfL Bochum,28,28.1,60.7,4,Vonovia Ruhrstadion,26000,bundesliga
+407,82,VfL Wolfsburg,25,24.8,60.0,10,Volkswagen Arena,30000,bundesliga
+53,86,SV Werder Bremen,26,25.4,34.6,6,Wohninvest-Weserstadion,42100,bundesliga
+283,89,1.FC Union Berlin,27,27.6,48.1,9,Stadion An der Alten Försterei,22012,bundesliga
+324,105,SV Darmstadt 98,27,25.6,40.7,1,Merck-Stadion am Böllenfalltor,17500,bundesliga
+341,114,Besiktas JK,31,27.4,48.4,13,Vodafone Park,42590,super-lig
+391,121,Dynamo Moscow,23,25.1,39.1,9,VTB-Arena,25716,premier-liga
+128,124,Rangers FC,35,26.6,62.9,10,Ibrox Stadium,50987,scottish-premiership
+57,126,Caykur Rizespor,32,26.8,28.1,1,Çaykur Didi,15332,super-lig
+0,127,SC Paderborn 07,26,25.7,19.2,1,Home Deluxe Arena,15000,bundesliga
+58,128,AO Xanthi,0,,,0,Xanthi Arena,7361,super-league-1
+98,130,Parma Calcio 1913,30,24.9,76.7,6,Ennio Tardini,22352,serie-a
+81,131,FC Barcelona,22,25.6,40.9,16,Spotify Camp Nou,99354,laliga
+160,132,NAC Breda,32,23.7,31.3,2,Rat Verlegh Stadion,19000,eredivisie
+264,133,SC Cambuur Leeuwarden,30,25.8,40.0,5,Cambuurstadion,10250,eredivisie
+190,141,Galatasaray,30,26.0,53.3,13,Ali Sami Yen Spor Kompleksi NEF Stadyumu,52223,super-lig
+99,142,Real Zaragoza,27,26.0,33.3,3,La Romareda,33608,laliga
+161,148,Tottenham Hotspur,25,26.8,68.0,16,Tottenham Hotspur Stadium,62062,premier-league
+294,150,Real Betis Balompié,26,29.1,50.0,8,Benito Villamarín,59378,laliga
+32,157,KAA Gent,25,26.3,48.0,4,Ghelamco Arena,19999,jupiler-pro-league
+192,162,AS Monaco,27,24.4,100.0,9,Stade Louis-II,18523,ligue-1
+295,167,FC Augsburg,32,25.3,59.4,7,WWK ARENA,30660,bundesliga
+61,169,Panionios Athens,34,23.5,11.8,0,Stadio Neas Smyrnis,11700,super-league-1
+102,172,RSC Charleroi,25,24.0,72.0,7,Stade du Pays de Charleroi,15000,jupiler-pro-league
+266,173,Odense Boldklub,26,23.8,50.0,5,Nature Energy Park,15790,superligaen
+62,180,Southampton FC,33,25.5,66.7,15,St Mary's Stadium,32384,premier-league
+267,190,FC Copenhagen,28,25.5,60.7,10,Parken,38065,superligaen
+1,192,Roda JC Kerkrade,25,24.0,36.0,0,Parkstad Limburg Stadion,19979,eredivisie
+34,200,FC Utrecht,30,25.8,43.3,4,"Stadion ""Galgenwaard""",23750,eredivisie
+375,202,FC Groningen,29,23.0,48.3,5,Euroborg,22555,eredivisie
+219,204,Lierse SK (- 2018),0,,,0,Herman Vanderpoortenstadion,14538,jupiler-pro-league
+242,206,Bröndby IF,26,25.0,42.3,6,Brøndby Stadion,28000,superligaen
+243,232,Spartak Moscow,26,25.1,30.8,10,Otkrytie Bank Arena,44571,premier-liga
+139,234,Feyenoord Rotterdam,27,23.6,59.3,14,"Stadion Feyenoord ""De Kuip""",47500,eredivisie
+105,235,RKC Waalwijk,28,26.1,57.1,5,Mandemakers Stadion,7508,eredivisie
+269,237,RCD Mallorca,25,27.7,52.0,9,Mallorca Son Moix,20500,laliga
+271,244,Olympique Marseille,22,26.8,72.7,14,Orange Vélodrome,67394,ligue-1
+164,252,Genoa CFC,31,26.4,64.5,5,Luigi Ferraris,34901,serie-a
+296,265,Panathinaikos Athens,30,27.1,70.0,10,Apostolos Nikolaidis,15000,super-league-1
+109,273,Stade Rennais FC,28,24.6,50.0,11,Roazhon Park,29778,ligue-1
+244,276,Hellas Verona,29,26.5,62.1,6,Marcantonio Bentegodi,39211,serie-a
+245,281,Manchester City,25,27.0,68.0,18,Etihad Stadium,55017,premier-league
+110,289,Sunderland AFC,26,23.5,46.2,6,Stadium of Light,48707,premier-league
+330,290,AJ Auxerre,33,25.8,63.6,9,Stade de l'Abbé-Deschamps,18541,ligue-1
+346,294,SL Benfica,25,24.9,60.0,8,Estádio da Luz,64642,liga-portugal-bwin
+303,306,SC Heerenveen,26,24.7,46.2,2,Abe Lenstra Stadion,27224,eredivisie
+64,317,Twente Enschede FC,24,25.5,41.7,4,De Grolsch Veste,30205,eredivisie
+347,331,CA Osasuna,22,27.9,18.2,3,El Sadar,23576,laliga
+85,336,Sporting CP,33,24.6,48.5,8,Estádio José Alvalade XXI,50095,liga-portugal-bwin
+65,338,Dynamo Kyiv,30,24.5,20.0,7,Valeriy Lobanovsky Stadion,16873,premier-liga
+275,339,Dnipro Dnipropetrovsk (-2020),0,,,0,Meteor,24381,premier-liga
+205,347,FC Metz,21,25.0,66.7,7,Stade Saint-Symphorien,26700,ligue-1
+206,350,Sheffield United,27,26.7,51.9,9,Bramall Lane,32702,premier-league
+350,354,KV Mechelen,30,24.3,33.3,4,AFAS Stadion,16672,jupiler-pro-league
+277,366,Real Valladolid CF,24,28.0,41.7,7,Nuevo José Zorrilla,27618,laliga
+396,367,Rayo Vallecano,25,28.8,32.0,5,Campo de Fútbol de Vallecas,15105,laliga
+251,368,Sevilla FC,24,28.9,75.0,10,Ramón Sánchez-Pizjuán,43883,laliga
+305,369,Lyngby BK,30,24.2,23.3,3,Lyngby Stadion,10000,superligaen
+306,370,Aberdeen FC,25,24.8,68.0,5,Pittodrie Stadium,22199,scottish-premiership
+207,371,Celtic FC,29,25.7,72.4,15,Celtic Park,60832,scottish-premiership
+170,379,West Ham United,23,28.0,73.9,13,London Stadium,62500,premier-league
+398,380,US Salernitana 1919,27,26.9,63.0,12,Arechi,29739,serie-a
+10,383,PSV Eindhoven,24,25.6,58.3,8,Philips Stadion,35000,eredivisie
+171,385,Fortuna Sittard,26,25.9,69.2,2,Fortuna Sittard Stadion,12500,eredivisie
+147,398,SS Lazio,26,27.3,61.5,8,Olimpico di Roma,73261,serie-a
+351,399,Leeds United,32,24.8,68.8,11,Elland Road,37890,premier-league
+381,403,Willem II Tilburg,27,25.9,25.9,0,Koning Willem II Stadion,14700,eredivisie
+173,405,Aston Villa,29,26.6,58.6,11,Villa Park,42682,premier-league
+353,410,Udinese Calcio,27,25.5,81.5,8,Dacia Arena,25144,serie-a
+383,415,FC Toulouse,26,24.5,88.5,7,Stadium Municipal,33150,ligue-1
+114,416,Torino FC,28,24.7,82.1,16,Stadio Olimpico Grande Torino,28177,serie-a
+174,417,OGC Nice,27,24.5,66.7,13,Allianz Riviera,36178,ligue-1
+176,418,Real Madrid,24,27.7,70.8,16,Santiago Bernabéu,81044,laliga
+254,430,ACF Fiorentina,26,26.6,53.8,7,Artemio Franchi,43147,serie-a
+148,441,Apollon Smyrnis,27,27.3,55.6,0,Stadio Neas Smyrnis,11700,super-league-1
+67,443,Vejle Boldklub,27,24.0,63.0,3,Vejle Stadion,10418,superligaen
+384,449,Trabzonspor,31,25.6,41.9,12,Şenol Güneş Spor Kompleksi,40782,super-lig
+115,458,Palermo FC,28,25.6,25.0,4,"Comunale Renzo Barbera ""La Favorita""",36365,serie-a
+401,465,St. Mirren FC,26,26.4,61.5,5,The SMISA Stadium,8023,scottish-premiership
+177,467,NEC Nijmegen,27,24.3,33.3,1,Goffertstadion,12500,eredivisie
+402,468,Sparta Rotterdam,24,26.3,37.5,1,"Sparta-stadion ""Het Kasteel""",11026,eredivisie
+403,472,UD Las Palmas,26,26.8,23.1,1,Estadio de Gran Canaria,32400,laliga
+13,475,Sint-Truidense VV,23,26.4,65.2,3,Stayen,14600,jupiler-pro-league
+15,498,KSC Lokeren (- 2020),0,,,0,Daknamstadion,12000,jupiler-pro-league
+310,499,Vitesse Arnhem,28,23.8,46.4,4,GelreDome,21248,eredivisie
+255,506,Juventus FC,28,27.1,60.7,16,Allianz Stadium,41507,serie-a
+226,511,Dundee FC,27,25.2,44.4,0,Kilmac Stadium at Dens Park,11850,scottish-premiership
+312,512,Stoke City,24,26.7,37.5,6,bet365 Stadium,30089,premier-league
+227,520,Cercle Brugge,23,23.9,60.9,4,Jan-Breydel-Stadion,29062,jupiler-pro-league
+336,524,Gaziantepspor (- 2020),0,,,0,Gaziantep Stadyumu,33502,super-lig
+279,533,TSG 1899 Hoffenheim,31,26.0,54.8,9,PreZero Arena,30150,bundesliga
+149,543,Wolverhampton Wanderers,31,25.9,83.9,15,Molineux Stadium,32050,premier-league
+17,553,Ionikos Nikeas,27,28.7,59.3,1,Dimotiko Gipedo Neapolis,6000,super-league-1
+210,566,Beerschot AC,0,,,0,Olympisch Stadion,12771,jupiler-pro-league
+355,583,Paris Saint-Germain,27,25.2,63.0,13,Parc des Princes,49691,ligue-1
+70,589,Antalyaspor,31,26.5,54.8,5,Corendon Airlines Park Antalya Stadı,32537,super-lig
+257,595,SC Bastia,25,27.6,32.0,6,Stade Armand-Cesari,16480,ligue-1
+356,601,KV Kortrijk,28,25.3,71.4,5,Guldensporenstadion,9399,jupiler-pro-league
+19,603,Cardiff City,28,25.5,85.7,8,Cardiff City Stadium,33280,premier-league
+281,605,Aris Thessaloniki,30,27.2,73.3,7,"Gipedo ""Kleanthis Vikelidis""",22800,super-league-1
+20,607,Venezia FC,27,25.6,63.0,5,Pier Luigi Penzo,11150,serie-a
+228,610,Ajax Amsterdam,26,24.4,42.3,15,Johan Cruijff ArenA,55600,eredivisie
+258,618,AS Saint-Étienne,29,25.1,27.6,3,Stade Geoffroy-Guichard,42000,ligue-1
+314,621,Athletic Bilbao,25,27.9,4.0,4,San Mamés,53289,laliga
+50,631,Chelsea FC,33,25.7,66.7,25,Stamford Bridge,40853,premier-league
+71,641,Middlesbrough FC,25,26.1,32.0,6,Riverside Stadium,33746,premier-league
+358,642,De Graafschap Doetinchem,30,23.7,20.0,0,"Stadion ""De Vijverberg""",12600,eredivisie
+211,653,OFI Crete FC,31,26.6,51.6,3,Gipedo Theodoros Vardinogiannis,9088,super-league-1
+404,660,Shakhtar Donetsk,31,24.8,19.4,14,Arena Lviv,34915,premier-liga
+23,667,RC Strasbourg Alsace,26,26.7,42.3,8,Stade de la Meinau,29000,ligue-1
+119,678,Aarhus GF,23,25.1,39.1,2,Ceres Park,19433,superligaen
+316,681,Real Sociedad,27,25.6,14.8,6,Reale Arena,39313,laliga
+51,683,Olympiacos Piraeus,29,27.6,65.5,11,Stadio Georgios Karaiskakis,32115,super-league-1
+74,703,Nottingham Forest,38,27.8,63.2,15,The City Ground,30445,premier-league
+318,714,RCD Espanyol Barcelona,27,26.3,25.9,5,RCDE Stadium,40500,laliga
+180,720,FC Porto,28,26.7,53.6,8,Estádio do Dragão,50033,liga-portugal-bwin
+319,724,FC Volendam,32,22.8,40.6,0,Kras Stadion,7384,eredivisie
+405,749,FC Empoli,30,25.3,46.7,9,Carlo Castellani,19847,serie-a
+406,750,FC Sochaux-Montbéliard,25,26.2,44.0,4,Stade Auguste-Bonal,20005,ligue-1
+88,762,Newcastle United,34,27.7,55.9,13,St James' Park,52338,premier-league
+361,798,Excelsior Rotterdam,28,23.7,35.7,1,Van Donge & De Roo Stadion - Woudestein,4400,eredivisie
+320,800,Atalanta BC,25,26.7,68.0,11,Gewiss Stadium,21747,serie-a
+321,820,Genclerbirligi Ankara,34,26.1,29.4,1,Eryaman Stadyumu,20560,super-lig
+52,825,Eskisehirspor,41,23.9,2.4,0,Eskişehir Yeni Stadyum,34930,super-lig
+232,826,RC Lens,30,25.8,60.0,11,Stade Bollaert-Delelis,38223,ligue-1
+181,833,Denizlispor,27,25.8,11.1,1,Denizli Atatürk Stadı,18745,super-lig
+24,855,EA Guingamp,27,25.4,25.9,1,Stade du Roudourou,18120,ligue-1
+182,862,Chievo Verona,0,,,0,Marcantonio Bentegodi,31045,serie-a
+54,865,FC Midtjylland,27,23.9,55.6,7,MCH Arena,11535,superligaen
+76,868,MKE Ankaragücü,31,26.1,51.6,5,Eryaman Stadyumu,20560,super-lig
+89,873,Crystal Palace,27,26.7,51.9,8,Selhurst Park,26047,premier-league
+26,897,Deportivo de La Coruña,24,27.7,12.5,0,Abanca Riazor,32912,laliga
+260,903,Hibernian FC,26,26.5,57.7,5,Easter Road Stadium,20250,scottish-premiership
+362,924,Istanbulspor,35,24.9,48.6,5,Esenyurt Necmi Kadıoğlu Stadyumu,7500,super-lig
+183,931,Fulham FC,26,27.9,88.5,13,Craven Cottage,22384,premier-league
+322,932,Lokomotiv Moscow,29,24.3,24.1,9,RZD Arena,27084,premier-liga
+408,940,Celta de Vigo,23,26.5,43.5,6,Abanca Balaídos,29000,laliga
+388,964,Zenit St. Petersburg,23,26.6,43.5,11,Gazprom Arena,63026,premier-liga
+184,968,KVC Westerlo,27,26.4,59.3,3,Het Kuipje,8035,jupiler-pro-league
+121,969,Montpellier HSC,28,25.9,42.9,5,Stade de la Mosson,32939,ligue-1
+409,976,CF União Madeira (-2021),0,,,0,Centro Desportivo da Madeira,2500,liga-portugal-bwin
+389,979,Moreirense FC,25,26.6,64.0,1,E. C. J. de Almeida Freitas,6153,liga-portugal-bwin
+185,982,CD Nacional,27,25.0,44.4,2,Estádio da Madeira,5586,liga-portugal-bwin
+323,984,West Bromwich Albion,25,27.8,32.0,4,The Hawthorns,26850,premier-league
+233,985,Manchester United,38,25.3,60.5,22,Old Trafford,74879,premier-league
+410,987,Motherwell FC,31,26.1,61.3,2,Fir Park,13750,scottish-premiership
+90,989,AFC Bournemouth,31,26.2,58.1,14,Vitality Stadium,11329,premier-league
+213,993,Córdoba CF,24,27.9,16.7,0,Nuevo Arcángel,21822,laliga
+285,995,FC Nantes,27,26.3,44.4,8,Stade de la Beaujoire,37463,ligue-1
+286,1003,Leicester City,30,27.1,63.3,15,King Power Stadium,32273,premier-league
+91,1005,US Lecce,31,24.6,61.3,6,Ettore Giardiniero,31559,serie-a
+287,1010,Watford FC,30,26.3,80.0,12,Vicarage Road,21577,premier-league
+92,1025,Bologna FC 1909,31,25.7,67.7,9,Stadio Renato Dall’Ara,36462,serie-a
+186,1032,Reading FC,27,27.1,63.0,7,Select Car Leasing Stadium,24161,premier-league
+363,1038,UC Sampdoria,29,26.6,58.6,7,Luigi Ferraris,36348,serie-a
+27,1039,Queens Park Rangers,26,25.9,57.7,8,Loftus Road Stadium,18360,premier-league
+78,1041,Olympique Lyon,23,25.3,43.5,3,Groupama Stadium,59186,ligue-1
+214,1049,Valencia CF,25,25.2,56.0,9,Mestalla,55000,laliga
+122,1050,Villarreal CF,23,28.5,39.1,8,La Cerámica,23500,laliga
+364,1053,Aalborg BK,26,24.6,34.6,0,Aalborg Portland Park,13800,superligaen
+390,1063,Viborg FF,24,23.8,54.2,4,Viborg Stadion,9566,superligaen
+261,1071,Wigan Athletic,27,27.9,55.6,8,DW Stadium,25133,premier-league
+365,1075,SC Braga,25,25.7,56.0,3,Estádio Municipal de Braga,30286,liga-portugal-bwin
+56,1082,LOSC Lille,23,26.0,65.2,8,Decathlon Arena-Stade Pierre-Mauroy,50186,ligue-1
+93,1083,FK Rostov,24,24.8,12.5,8,Rostov Arena,45415,premier-liga
+28,1084,Málaga CF,27,27.9,29.6,0,La Rosaleda,30044,laliga
+187,1085,Vitória Setúbal FC,29,26.0,34.5,0,Estádio do Bonfim,18642,liga-portugal-bwin
+188,1090,AZ Alkmaar,28,23.3,39.3,7,AFAS Stadion,19478,eredivisie
+235,1091,PAOK Thessaloniki,30,27.0,73.3,7,Toumba Stadium,28703,super-league-1
+339,1095,ESTAC Troyes,28,25.4,50.0,4,Stade de l'Aube,21877,ligue-1
+123,1096,Royal Antwerp FC,26,25.2,53.8,4,De Bosuil,16144,jupiler-pro-league
+289,1108,Deportivo Alavés,24,26.1,41.7,3,Mendizorroza,19840,laliga
+124,1110,Huddersfield Town,33,26.7,36.4,3,John Smith's Stadium,24500,premier-league
+95,1123,Norwich City,25,26.0,68.0,12,Carrow Road,27244,premier-league
+189,1124,Fakel Voronezh,25,27.3,8.0,0,Central Stadium of Profsoyuzes,21793,premier-liga
+290,1132,Burnley FC,26,25.1,69.2,12,Turf Moor,21994,premier-league
+262,1147,AC Ajaccio,30,28.5,50.0,9,Stade François-Coty,10446,ligue-1
+156,1148,Brentford FC,29,25.6,72.4,16,Brentford Community Stadium,17250,premier-league
+157,1158,FC Lorient,26,24.8,46.2,6,Stade du Moustoir,19010,ligue-1
+158,1159,AS Nancy-Lorraine,27,25.7,18.5,0,Stade Marcel-Picot,20087,ligue-1
+125,1160,Nîmes Olympique,26,25.4,46.2,3,Stade des Antonins,8033,ligue-1
+29,1162,SM Caen,27,25.7,44.4,4,Stade Michel-d'Ornano,20500,ligue-1
+215,1177,Silkeborg IF,25,24.1,8.0,1,JYSK Park,10000,superligaen
+96,1184,KRC Genk,28,22.9,64.3,11,Cegeka Arena,24956,jupiler-pro-league
+126,1186,Torpedo Moscow,29,27.4,34.5,4,Luzhniki Stadium,81000,premier-liga
+216,1210,US Livorno 1915,28,23.8,10.7,0,Armando Picchi,19238,serie-a
+159,1237,Brighton & Hove Albion,27,24.9,70.4,14,AMEX Stadium,31800,premier-league
+367,1241,Livingston FC,28,26.8,53.6,1,Tony Macaroni Arena,9512,scottish-premiership
+342,1244,CD Leganés,23,28.6,34.8,3,Butarque,12454,laliga
+97,1245,KAS Eupen,31,23.5,67.7,6,Kehrweg-Stadion,8331,jupiler-pro-league
+343,1268,ADO Den Haag,34,23.5,26.5,4,Bingoal Stadion,15000,eredivisie
+79,1269,PEC Zwolle,34,24.2,29.4,2,MAC³PARK stadion,14000,eredivisie
+217,1283,FC Emmen,30,25.9,46.7,3,De Oude Meerdijk,8309,eredivisie
+263,1301,CS Marítimo,28,26.7,60.7,3,Estádio do Marítimo,10600,liga-portugal-bwin
+80,1304,Heracles Almelo,29,24.2,62.1,0,Erve Asito,12080,eredivisie
+59,1387,ACN Siena,29,25.0,3.4,0,Artemio Franchi,15373,serie-a
+368,1390,Cagliari Calcio,28,25.9,42.9,4,Unipol Domus,16416,serie-a
+291,1411,RAEC Mons (- 2015),0,,,0,Charles Tondreau Stadion,12662,jupiler-pro-league
+292,1416,Amiens SC,24,24.1,41.7,7,Stade Crédit Agricole la Licorne,12999,ligue-1
+293,1420,Angers SCO,30,25.0,50.0,7,Stade Raymond Kopa,19350,ligue-1
+130,1421,Stade Reims,25,24.7,64.0,7,Stade Auguste-Delaune,21684,ligue-1
+191,1423,Valenciennes FC,28,25.0,28.6,4,Stade du Hainaut,25000,ligue-1
+131,1426,VVV-Venlo,28,22.9,25.0,0,Covebo Stadion - De Koel,8000,eredivisie
+132,1429,Cesena FC,28,26.0,14.3,0,Orogel Stadium - Dino Manuzzi,23860,serie-a
+239,1435,Go Ahead Eagles,27,23.5,40.7,1,De Adelaarshorst,9909,eredivisie
+133,1436,SC Beira-Mar,27,26.8,22.2,1,Estádio Mário Duarte,12000,liga-portugal-bwin
+134,1455,FC Dordrecht,29,23.3,41.4,1,Matchoholic Stadion,4235,eredivisie
+100,1465,GD Estoril Praia,28,24.8,46.4,2,Estádio António Coimbra da Mota,8000,liga-portugal-bwin
+101,1467,Göztepe,31,23.3,32.3,0,Gürsel Aksel Stadyumu,19713,super-lig
+31,1506,Kardemir Karabükspor,0,,,0,Dr. Necmettin Şeyhoğlu,12400,super-lig
+370,1519,Dundee United FC,30,25.0,33.3,3,Tannadice Park,14223,scottish-premiership
+371,1531,Elche CF,26,27.7,38.5,0,Manuel Martínez Valero,31388,laliga
+372,1533,SD Eibar,26,28.3,19.2,0,Ipurua,8164,laliga
+265,1627,Catania SSD,28,25.9,10.7,0,Cibali - Angelo Massimino,20204,serie-a
+137,2079,Veria NPS,29,24.3,13.8,0,Dimotiko Stadio Verias,6350,super-league-1
+194,2227,SK Tavriya Simferopol ( - 2022),0,,,0,RS Lokomotiv,19978,premier-liga
+2,2239,US Cremonese,27,25.9,48.1,5,Giovanni Zini,16003,serie-a
+195,2282,Club Brugge KV,30,24.0,56.7,12,Jan-Breydel-Stadion,29062,jupiler-pro-league
+326,2288,Swansea City,22,24.8,77.3,4,Swansea.com Stadium,21088,premier-league
+394,2292,Elazigspor,33,24.9,,0,Elazığ Doğukent Stadı,2500,super-lig
+35,2293,Konyaspor,30,26.6,50.0,5,Medaş Konya Büyükşehir Stadyumu,42000,super-lig
+376,2323,Orduspor,2,21.0,,0,19 Eylül Stadyum,11024,super-lig
+220,2375,Altay SK,31,25.3,9.7,0,Alsancak Mustafa Denizli Stadı,15000,super-lig
+196,2381,Sivasspor,31,28.5,54.8,4,Yeni 4 Eylül Stadı,27532,super-lig
+270,2410,CSKA Moscow,26,25.2,30.8,7,VEB Arena,30114,premier-liga
+197,2414,AC Horsens,23,25.7,39.1,4,Nordstern Arena Horsens,10400,superligaen
+345,2420,Vitória Guimarães SC,29,24.2,41.4,3,Estádio D. Afonso Henriques,30029,liga-portugal-bwin
+3,2423,CD Santa Clara,31,25.9,64.5,2,Estádio de São Miguel,12500,liga-portugal-bwin
+198,2424,Gil Vicente FC,25,25.8,68.0,3,Estádio Cidade de Barcelos,12046,liga-portugal-bwin
+221,2425,Rio Ave FC,24,27.6,50.0,0,Estádio dos Arcos,5300,liga-portugal-bwin
+199,2439,Kuban Krasnodar (-2018),0,,,0,Kuban Stadium,31654,premier-liga
+141,2441,AEK Athens,31,27.4,64.5,12,OPAP Arena,32500,super-league-1
+327,2448,Sporting Gijón,28,26.2,35.7,2,El Molinón - Enrique Castro Quini,29029,laliga
+82,2451,Inverness Caledonian Thistle FC,26,24.5,34.6,0,Tulloch Caledonian Stadium,7750,scottish-premiership
+36,2457,B SAD,25,24.2,52.0,4,Estádio Nacional do Jamor,37593,liga-portugal-bwin
+328,2477,Karpaty Lviv (-2021),0,,,0,Stadion Ukraina,28051,premier-liga
+37,2503,Boavista FC,28,25.7,57.1,5,Estádio do Bessa Sec. XXI,28263,liga-portugal-bwin
+5,2553,Kilmarnock FC,23,27.0,52.2,0,"BBSP Stadium, Rugby Park",18128,scottish-premiership
+38,2578,St. Johnstone FC,27,27.9,40.7,3,McDiarmid Park,10696,scottish-premiership
+7,2671,PAS Giannina,31,25.4,45.2,0,Stadio Zosimades,7652,super-league-1
+297,2672,APO Levadiakos,31,27.9,61.3,0,Stadio Livadias,5915,super-league-1
+39,2687,Cádiz CF,29,29.1,31.0,4,Nuevo Mirandilla,21094,laliga
+298,2696,Krylya Sovetov Samara,25,25.1,28.0,5,Solidarnost Samara Arena,42347,premier-liga
+142,2698,Rubin Kazan,33,26.7,24.2,2,Ak Bars Arena,45379,premier-liga
+143,2700,Anzhi Makhachkala ( -2022),0,,,0,RDYuSSh MinObrNauki RD Politekh Makhachkala,1600,premier-liga
+108,2703,Spartak Vladikavkaz (-2020),0,,,0,Republican Stadium Spartak,32464,premier-liga
+200,2715,RFC Seraing,28,23.9,67.9,3,Stade du Paray,6744,jupiler-pro-league
+144,2722,SPAL,32,26.0,25.0,2,Paolo Mazza,16134,serie-a
+40,2727,Oud-Heverlee Leuven,22,25.4,50.0,3,King Power at Den Dreef Stadion,10020,jupiler-pro-league
+299,2740,Vorskla Poltava,30,25.1,30.0,2,Vorskla im. Oleksiy Butovskyi,23842,premier-liga
+222,2759,Ross County FC,31,24.7,54.8,2,Global Energy Stadium,6541,scottish-premiership
+395,2760,Partick Thistle FC,19,27.9,5.3,0,The Energy Check Stadium at Firhill,10102,scottish-premiership
+41,2778,FC Nordsjaelland,29,21.6,41.4,3,Right to Dream Park,10300,superligaen
+165,2783,Metalurg Donetsk (- 2015),0,,,0,Metalurg,5090,premier-liga
+300,2832,Gaziantep FK,6,23.0,50.0,0,Kalyon Stadyumu,33502,super-lig
+202,2861,KV Oostende,32,24.0,59.4,4,Diaz Arena,8432,jupiler-pro-league
+8,2919,AC Monza,30,26.9,30.0,2,U-Power Stadium - Brianteo,15039,serie-a
+301,2921,Delfino Pescara 1936,28,24.6,21.4,1,Adriatico,20476,serie-a
+247,2944,Ankaraspor,30,23.8,3.3,0,Osmanlı Stadı,19626,super-lig
+248,2969,Dijon FCO,29,25.8,48.3,4,Stade Gaston-Gérard,16098,ligue-1
+302,2990,Académica Coimbra,26,25.2,23.1,0,Estádio Cidade de Coimbra,29744,liga-portugal-bwin
+272,2995,FC Paços de Ferreira,27,25.7,40.7,2,Estádio Capital do Móvel,9076,liga-portugal-bwin
+249,2999,Hamilton Academical FC,28,22.8,32.1,0,Fountain of Youth Stadium,6018,scottish-premiership
+203,3008,Hull City,28,25.0,60.7,6,MKM Stadium,25586,premier-league
+331,3057,Standard Liège,25,24.4,52.0,6,Maurice Dufrasne Stadion,27670,jupiler-pro-league
+111,3060,Atromitos Athen,26,26.2,50.0,2,Stadio Peristeriou,9050,super-league-1
+9,3205,Kayserispor,28,25.8,46.4,3,RHG Enertürk Enerji Stadyumu,32864,super-lig
+83,3216,Mersin Talimyurdu SK,0,,,0,Mersin Stadyumu,25000,super-lig
+273,3268,Casa Pia AC,28,26.8,67.9,4,Estádio Nacional do Jamor,37593,liga-portugal-bwin
+250,3302,UD Almería,26,26.3,50.0,2,Power Horse Stadium,15274,laliga
+377,3325,GD Chaves,27,26.4,63.0,3,Estádio Municipal Eng.º Manuel Branco Teixeira,9000,liga-portugal-bwin
+348,3327,FC Penafiel,28,27.9,14.3,0,Estádio Municipal 25 de Abril,5230,liga-portugal-bwin
+204,3329,FC Famalicão,30,24.4,66.7,5,Estádio Municipal de Famalicão,5305,liga-portugal-bwin
+146,3336,Desportivo Aves (- 2020),0,,,0,Estádio CD das Aves,5441,liga-portugal-bwin
+332,3349,CD Feirense,24,25.0,45.8,2,Estádio Marcolino de Castro,5401,liga-portugal-bwin
+274,3368,Levante UD,23,27.5,26.1,0,Ciutat de València,26354,laliga
+304,3426,Esbjerg fB,27,22.7,37.0,2,Blue Water Arena,16942,superligaen
+42,3508,SV Zulte Waregem,30,25.4,56.7,4,Elindus Arena,12250,jupiler-pro-league
+349,3522,Spezia Calcio,29,25.9,75.9,10,Alberto Picco,11676,serie-a
+112,3524,Clermont Foot 63,25,25.8,60.0,7,Stade Gabriel-Montpied,13000,ligue-1
+43,3558,GFC Ajaccio,5,26.8,20.0,1,Stade Ange-Casanova,4050,ligue-1
+276,3592,Kryvbas Kryvyi Rig,27,26.0,14.8,1,Girnyk,2500,premier-liga
+378,3609,Rotor Volgograd,27,23.9,7.4,0,Volgograd Arena,45568,premier-liga
+44,3690,SKA Khabarovsk,27,25.7,14.8,0,Lenin Stadion,15200,premier-liga
+278,3691,Tom Tomsk,0,,,0,Trud,10028,premier-liga
+397,3709,Getafe CF,25,27.8,48.0,7,Coliseum Alfonso Pérez,16800,laliga
+45,3714,Enisey Krasnoyarsk,26,25.6,7.7,1,Zentralstadion Krasnoyarsk,15000,premier-liga
+223,3719,FK Khimki,27,25.3,44.4,2,Arena Khimki,18636,premier-liga
+307,3725,Akhmat Grozny,30,26.2,33.3,2,Akhmat-Arena,30200,premier-liga
+333,3729,Arsenal Tula,27,27.4,7.4,1,Arsenal,19241,premier-liga
+66,3840,Adana Demirspor,28,27.4,53.6,2,Yeni Adana Stadyumu,33000,super-lig
+172,3911,Stade Brestois 29,26,25.5,34.6,5,Stade Francis-Le Blé,15097,ligue-1
+11,3948,Royale Union Saint Gilloise,24,25.1,70.8,7,Stade Joseph Mariën,8000,jupiler-pro-league
+252,3999,PAS Lamia 1964,33,28.7,48.5,5,"Stadio Lamia ""Athanasios Diakos""",5500,super-league-1
+86,4083,FC Crotone,25,27.0,24.0,1,Ezio Scida,16640,serie-a
+382,4102,AC Carpi,25,23.6,24.0,1,Sandro Cabassi,5510,serie-a
+253,4128,Amkar Perm,26,26.0,,0,Zvezda,17000,premier-liga
+175,4171,Benevento Calcio,31,26.7,51.6,2,Ciro Vigorito,16867,serie-a
+334,4294,SC Farense,28,27.6,53.6,1,Estádio São Luís,15000,liga-portugal-bwin
+68,4482,Volyn Lutsk,0,,,0,Stadion Avangard,12080,premier-liga
+69,4603,AE Larisa,28,24.2,21.4,0,Stadio Alkazar,13108,super-league-1
+116,4750,SC Olhanense,21,23.0,47.6,0,Estádio José Arcanjo,10080,liga-portugal-bwin
+335,4795,FC Ingolstadt 04,28,24.3,28.6,1,Audi Sportpark,15800,bundesliga
+256,5219,AOK Kerkyra,8,28.1,12.5,0,Ethniko Stadio Kerkyras,3000,super-league-1
+117,5220,GS Ergotelis,3,23.3,,0,Pankritio Stadio,25780,super-league-1
+16,5358,SD Huesca,24,27.5,33.3,2,El Alcoraz,9128,laliga
+118,5572,Niki Volou,26,27.2,26.9,2,Panthessaliko Stadio,22700,super-league-1
+313,5724,Randers FC,23,26.1,52.2,2,Cepheus Park Randers,10300,superligaen
+87,5817,SönderjyskE,30,24.0,30.0,1,Sydbank Park,10000,superligaen
+280,5818,Hobro IK,22,24.8,18.2,2,DS Arena,7500,superligaen
+179,6195,SSC Napoli,27,26.3,70.4,19,Stadio Diego Armando Maradona,54726,serie-a
+357,6414,Metalist Kharkiv (- 2016),0,,,0,OSK Metalist,38685,premier-liga
+385,6418,Panetolikos GFS,31,25.9,41.9,5,Gipedo Panetolikou,7321,super-league-1
+21,6574,US Sassuolo,26,26.1,57.7,7,Mapei Stadium - Città del Tricolore,21584,serie-a
+22,6646,Fatih Karagümrük,31,26.1,54.8,4,Atatürk Olimpiyat,74753,super-lig
+315,6676,Asteras Tripolis,32,27.3,75.0,0,Gipedo Theodoros Kolokotronis,7423,super-league-1
+72,6890,Basaksehir FK,29,26.6,44.8,8,Başakşehir Fatih Terim,17156,super-lig
+338,6894,Kayseri Erciyesspor,0,,,0,Kayseri Atatürk Spor Kompleksi Yan Açık Saha,2000,super-lig
+73,6912,FC Vizela,26,25.0,73.1,4,Estádio do Vizela,6565,liga-portugal-bwin
+317,6992,Chornomorets Odessa,25,27.7,16.0,0,Stadion Chornomorets (2011),34164,premier-liga
+230,6993,FK Mariupol,0,,,0,Stadion im. Volodymyra Boyko,12680,premier-liga
+359,6994,Metalurg Zaporizhya (-2016),0,,,0,Slavutych Arena,11883,premier-liga
+231,6996,Goverla Uzhgorod (- 2016),0,,,0,Avangard,10640,premier-liga
+153,7179,CD Tondela,26,22.8,46.2,2,Estádio João Cardoso,5000,liga-portugal-bwin
+360,7185,Panthrakikos Komotini,29,24.3,10.3,0,Stadio Komotinis OPAP,5601,super-league-1
+154,7378,Portimonense SC,31,25.4,71.0,4,Portimonense Estádio,6000,liga-portugal-bwin
+75,7775,Hatayspor,13,29.0,53.8,0,Yeni Hatay Stadyumu,25000,super-lig
+212,8024,FC Arouca,26,26.0,76.9,1,Estádio Municipal de Arouca,5600,liga-portugal-bwin
+25,8838,Zirka Kropyvnytskyi,7,27.4,,0,Zirka,14628,premier-liga
+284,8970,Frosinone Calcio,29,25.4,37.9,3,Benito Stirpe,16227,serie-a
+77,9007,Arsenal Kyiv,0,,,0,NSK Olimpisky,70050,premier-liga
+155,10484,Kasimpasa,34,27.4,50.0,4,Recep Tayyip Erdoğan Stadyumu,13856,super-lig
+55,10690,Zorya Lugansk,30,24.4,3.3,2,Valeriy Lobanovsky Stadion,16873,premier-liga
+236,11126,Mordovia Saransk (-2020),0,,,0,Mordovia Arena,44442,premier-liga
+94,11127,Ural Yekaterinburg,28,27.3,35.7,1,Yekaterinburg Arena,23000,premier-liga
+340,11282,Alanyaspor,32,25.6,46.9,6,Kırbıyık Holding Stadyumu,10128,super-lig
+237,11688,Giresunspor,25,25.5,40.0,4,Çotanak Spor Kompleksi,21500,super-lig
+366,12321,Girona FC,25,26.7,44.0,4,Montilivi,13286,laliga
+30,12438,Volga Nizhniy Novgorod (- 2016),0,,,0,Zentralstadion Lokomotiv,17856,premier-liga
+129,14171,Thonon Évian Grand Genève FC,27,27.4,22.2,1,Stade Camille Fournier,2500,ligue-1
+240,14589,FK Orenburg,26,25.6,50.0,4,Gazovik,10046,premier-liga
+33,16239,Desna Chernigiv,0,,,0,Stadion im. Yuriya Gagarina,12060,premier-liga
+135,16245,FK Sevastopol (- 2014),0,,,0,SK Sevastopol,5826,premier-liga
+162,16247,PFK Stal Kamyanske (-2018),0,,,0,Obolon,5100,premier-liga
+60,16704,FK Krasnodar,23,24.8,52.2,5,Stadion Krasnodar,35179,premier-liga
+373,16795,Granada CF,28,28.0,28.6,3,Nuevo Los Cármenes,19336,laliga
+104,18105,PFK Lviv,28,25.3,21.4,0,Stadion SKIF,3742,premier-liga
+392,18303,FK Oleksandriya,28,24.5,7.1,3,KSK Nika,7000,premier-liga
+136,19657,Vendsyssel FF,24,25.1,29.2,0,Nord Energi Arena,10000,superligaen
+218,19771,Akhisarspor,14,21.0,,0,Spor Toto Akhisar Stadyumu,12139,super-lig
+393,19789,Yeni Malatyaspor,10,22.9,10.0,0,Yeni Malatya Stadyumu,25745,super-lig
+325,20100,FC Vestsjaelland,0,,,0,Harboe Arena,10000,superligaen
+344,20698,Balikesirspor,22,22.0,4.5,0,Balıkesir Atatürk,15800,super-lig
+268,21957,AO Platanias,0,,,0,Dimotiko Gipedo Perivolia,3700,super-league-1
+63,22110,FC Helsingör,23,24.6,17.4,1,Helsingør Ny Stadion,4000,superligaen
+163,23611,Olimpik Donetsk,0,,,0,NTK im. B. M. Bannikova,1678,premier-liga
+106,23826,RB Leipzig,27,25.7,63.0,18,Red Bull Arena,47069,bundesliga
+4,24245,Ümraniyespor,23,28.4,39.1,2,Ümraniye Belediyesi Şehir Stadı,3513,super-lig
+6,26459,NK Veres Rivne,22,27.2,,0,Stadion Avangard (2022),10000,premier-liga
+201,28095,FK Ufa,26,24.4,11.5,0,Neftyanik,15132,premier-liga
+145,28643,SK Beveren,27,26.8,59.3,3,Freethielstadion,13290,jupiler-pro-league
+166,28956,AEL Kalloni,0,,,0,Stadio Mytilinis,4000,super-league-1
+246,29228,Royal Excel Mouscron (-2022),0,,,0,Le Canonnier,10830,jupiler-pro-league
+46,39722,Erzurumspor FK,28,26.1,25.0,1,Erzurum Kazım Karabekir,23700,super-lig
+208,40426,FC Tosno (-2018),0,,,0,Petrovsky,20985,premier-liga
+354,41201,PFK Tambov (-2021),0,,,0,Mordovia Arena,44149,premier-liga
+209,41231,FC Sochi,25,28.0,28.0,2,Fisht Olympic Stadium,45994,premier-liga
+12,41274,Beerschot V.A.,26,23.9,46.2,2,Olympisch Stadion,12771,jupiler-pro-league
+224,48332,Kolos Kovalivka,24,27.2,4.2,1,Kolos,5050,premier-liga
+14,48726,Rukh Lviv,27,23.0,22.2,0,Arena Lviv,34512,premier-liga
+225,49364,Ingulets Petrove,28,26.5,7.1,0,Stadion Ingulets,1720,premier-liga
+48,49702,FC Pari Nizhniy Novgorod,26,25.8,19.2,1,Nizhny Novgorod Stadium,44242,premier-liga
+150,55686,Metalist 1925 Kharkiv,27,25.7,7.4,0,Stadion Kolos,0,premier-liga
+152,60551,SK Dnipro-1,29,26.0,31.0,6,Avangard,10640,premier-liga
+282,60949,Volos NPS,26,26.5,61.5,2,Panthessaliko Stadio,22700,super-league-1
+337,61825,FK Minaj,25,26.0,4.0,0,Stadion Minaj,2000,premier-liga
+229,68608,CF Os Belenenses,30,25.7,16.7,0,Estádio do Restelo,19980,liga-portugal-bwin
+387,83678,Metalist Kharkiv,26,25.6,15.4,0,Avangard,10640,premier-liga

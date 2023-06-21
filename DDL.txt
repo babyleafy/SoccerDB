@@ -1,3 +1,5 @@
+CREATE DATABASE SOCCER_DB;
+
 CREATE TABLE Clubs (
     club_id INT,
     club_name VARCHAR(50),
